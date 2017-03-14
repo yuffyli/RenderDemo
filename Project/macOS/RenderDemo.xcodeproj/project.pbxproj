@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F103126A1E73AC320096672C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F10312691E73AC320096672C /* main.cpp */; };
+		8D264A031E77C0B1005AB93A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8D264A021E77C0B1005AB93A /* main.cpp */; };
+		8D264A0B1E77C0D0005AB93A /* MathUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8D264A051E77C0D0005AB93A /* MathUtil.cpp */; };
+		8D264A0C1E77C0D0005AB93A /* RotationMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8D264A071E77C0D0005AB93A /* RotationMatrix.cpp */; };
+		8D264A0D1E77C0D0005AB93A /* Vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8D264A091E77C0D0005AB93A /* Vector3.cpp */; };
 		F14916681E7397C200B50920 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F14916671E7397C200B50920 /* OpenGL.framework */; };
 		F149166A1E7397D700B50920 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F14916691E7397D700B50920 /* GLUT.framework */; };
 /* End PBXBuildFile section */
@@ -25,7 +28,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		F10312691E73AC320096672C /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = Source/main.cpp; sourceTree = "<group>"; };
+		8D264A021E77C0B1005AB93A /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../Source/main.cpp; sourceTree = "<group>"; };
+		8D264A051E77C0D0005AB93A /* MathUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathUtil.cpp; path = ../../Source/Maths/MathUtil.cpp; sourceTree = "<group>"; };
+		8D264A061E77C0D0005AB93A /* MathUtil.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MathUtil.hpp; path = ../../Source/Maths/MathUtil.hpp; sourceTree = "<group>"; };
+		8D264A071E77C0D0005AB93A /* RotationMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RotationMatrix.cpp; path = ../../Source/Maths/RotationMatrix.cpp; sourceTree = "<group>"; };
+		8D264A081E77C0D0005AB93A /* RotationMatrix.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = RotationMatrix.hpp; path = ../../Source/Maths/RotationMatrix.hpp; sourceTree = "<group>"; };
+		8D264A091E77C0D0005AB93A /* Vector3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Vector3.cpp; path = ../../Source/Maths/Vector3.cpp; sourceTree = "<group>"; };
+		8D264A0A1E77C0D0005AB93A /* Vector3.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Vector3.hpp; path = ../../Source/Maths/Vector3.hpp; sourceTree = "<group>"; };
 		F149165C1E73974800B50920 /* RenderDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RenderDemo; sourceTree = BUILT_PRODUCTS_DIR; };
 		F14916671E7397C200B50920 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		F14916691E7397D700B50920 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
@@ -44,10 +53,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8D264A041E77C0BA005AB93A /* Maths */ = {
+			isa = PBXGroup;
+			children = (
+				8D264A051E77C0D0005AB93A /* MathUtil.cpp */,
+				8D264A061E77C0D0005AB93A /* MathUtil.hpp */,
+				8D264A071E77C0D0005AB93A /* RotationMatrix.cpp */,
+				8D264A081E77C0D0005AB93A /* RotationMatrix.hpp */,
+				8D264A091E77C0D0005AB93A /* Vector3.cpp */,
+				8D264A0A1E77C0D0005AB93A /* Vector3.hpp */,
+			);
+			name = Maths;
+			sourceTree = "<group>";
+		};
 		F10312681E73ABD70096672C /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				F10312691E73AC320096672C /* main.cpp */,
+				8D264A041E77C0BA005AB93A /* Maths */,
+				8D264A021E77C0B1005AB93A /* main.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -135,7 +158,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F103126A1E73AC320096672C /* main.cpp in Sources */,
+				8D264A0C1E77C0D0005AB93A /* RotationMatrix.cpp in Sources */,
+				8D264A031E77C0B1005AB93A /* main.cpp in Sources */,
+				8D264A0D1E77C0D0005AB93A /* Vector3.cpp in Sources */,
+				8D264A0B1E77C0D0005AB93A /* MathUtil.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
