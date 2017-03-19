@@ -8,11 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		8D264A031E77C0B1005AB93A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8D264A021E77C0B1005AB93A /* main.cpp */; };
-		8D264A0B1E77C0D0005AB93A /* MathUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8D264A051E77C0D0005AB93A /* MathUtil.cpp */; };
-		8D264A0C1E77C0D0005AB93A /* RotationMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8D264A071E77C0D0005AB93A /* RotationMatrix.cpp */; };
-		8D264A0D1E77C0D0005AB93A /* Vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8D264A091E77C0D0005AB93A /* Vector3.cpp */; };
 		F14916681E7397C200B50920 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F14916671E7397C200B50920 /* OpenGL.framework */; };
 		F149166A1E7397D700B50920 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F14916691E7397D700B50920 /* GLUT.framework */; };
+		F17AF9E61E7EC3C5003016A8 /* EulerAngles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F17AF9D81E7EC3C5003016A8 /* EulerAngles.cpp */; };
+		F17AF9E71E7EC3C5003016A8 /* MathUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F17AF9DA1E7EC3C5003016A8 /* MathUtil.cpp */; };
+		F17AF9E81E7EC3C5003016A8 /* Matrix4x3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F17AF9DC1E7EC3C5003016A8 /* Matrix4x3.cpp */; };
+		F17AF9E91E7EC3C5003016A8 /* Quaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F17AF9DE1E7EC3C5003016A8 /* Quaternion.cpp */; };
+		F17AF9EA1E7EC3C5003016A8 /* RotationMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F17AF9E01E7EC3C5003016A8 /* RotationMatrix.cpp */; };
+		F17AF9EB1E7EC3C5003016A8 /* TriMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F17AF9E21E7EC3C5003016A8 /* TriMesh.cpp */; };
+		F17AF9EC1E7EC3C5003016A8 /* Vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F17AF9E41E7EC3C5003016A8 /* Vector3.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,15 +33,23 @@
 
 /* Begin PBXFileReference section */
 		8D264A021E77C0B1005AB93A /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../Source/main.cpp; sourceTree = "<group>"; };
-		8D264A051E77C0D0005AB93A /* MathUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathUtil.cpp; path = ../../Source/Maths/MathUtil.cpp; sourceTree = "<group>"; };
-		8D264A061E77C0D0005AB93A /* MathUtil.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MathUtil.hpp; path = ../../Source/Maths/MathUtil.hpp; sourceTree = "<group>"; };
-		8D264A071E77C0D0005AB93A /* RotationMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RotationMatrix.cpp; path = ../../Source/Maths/RotationMatrix.cpp; sourceTree = "<group>"; };
-		8D264A081E77C0D0005AB93A /* RotationMatrix.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = RotationMatrix.hpp; path = ../../Source/Maths/RotationMatrix.hpp; sourceTree = "<group>"; };
-		8D264A091E77C0D0005AB93A /* Vector3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Vector3.cpp; path = ../../Source/Maths/Vector3.cpp; sourceTree = "<group>"; };
-		8D264A0A1E77C0D0005AB93A /* Vector3.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Vector3.hpp; path = ../../Source/Maths/Vector3.hpp; sourceTree = "<group>"; };
 		F149165C1E73974800B50920 /* RenderDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RenderDemo; sourceTree = BUILT_PRODUCTS_DIR; };
 		F14916671E7397C200B50920 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		F14916691E7397D700B50920 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		F17AF9D81E7EC3C5003016A8 /* EulerAngles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EulerAngles.cpp; path = ../../Source/Maths/EulerAngles.cpp; sourceTree = "<group>"; };
+		F17AF9D91E7EC3C5003016A8 /* EulerAngles.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = EulerAngles.hpp; path = ../../Source/Maths/EulerAngles.hpp; sourceTree = "<group>"; };
+		F17AF9DA1E7EC3C5003016A8 /* MathUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathUtil.cpp; path = ../../Source/Maths/MathUtil.cpp; sourceTree = "<group>"; };
+		F17AF9DB1E7EC3C5003016A8 /* MathUtil.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MathUtil.hpp; path = ../../Source/Maths/MathUtil.hpp; sourceTree = "<group>"; };
+		F17AF9DC1E7EC3C5003016A8 /* Matrix4x3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Matrix4x3.cpp; path = ../../Source/Maths/Matrix4x3.cpp; sourceTree = "<group>"; };
+		F17AF9DD1E7EC3C5003016A8 /* Matrix4x3.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Matrix4x3.hpp; path = ../../Source/Maths/Matrix4x3.hpp; sourceTree = "<group>"; };
+		F17AF9DE1E7EC3C5003016A8 /* Quaternion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Quaternion.cpp; path = ../../Source/Maths/Quaternion.cpp; sourceTree = "<group>"; };
+		F17AF9DF1E7EC3C5003016A8 /* Quaternion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Quaternion.hpp; path = ../../Source/Maths/Quaternion.hpp; sourceTree = "<group>"; };
+		F17AF9E01E7EC3C5003016A8 /* RotationMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RotationMatrix.cpp; path = ../../Source/Maths/RotationMatrix.cpp; sourceTree = "<group>"; };
+		F17AF9E11E7EC3C5003016A8 /* RotationMatrix.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = RotationMatrix.hpp; path = ../../Source/Maths/RotationMatrix.hpp; sourceTree = "<group>"; };
+		F17AF9E21E7EC3C5003016A8 /* TriMesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TriMesh.cpp; path = ../../Source/Maths/TriMesh.cpp; sourceTree = "<group>"; };
+		F17AF9E31E7EC3C5003016A8 /* TriMesh.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TriMesh.hpp; path = ../../Source/Maths/TriMesh.hpp; sourceTree = "<group>"; };
+		F17AF9E41E7EC3C5003016A8 /* Vector3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Vector3.cpp; path = ../../Source/Maths/Vector3.cpp; sourceTree = "<group>"; };
+		F17AF9E51E7EC3C5003016A8 /* Vector3.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Vector3.hpp; path = ../../Source/Maths/Vector3.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,12 +68,20 @@
 		8D264A041E77C0BA005AB93A /* Maths */ = {
 			isa = PBXGroup;
 			children = (
-				8D264A051E77C0D0005AB93A /* MathUtil.cpp */,
-				8D264A061E77C0D0005AB93A /* MathUtil.hpp */,
-				8D264A071E77C0D0005AB93A /* RotationMatrix.cpp */,
-				8D264A081E77C0D0005AB93A /* RotationMatrix.hpp */,
-				8D264A091E77C0D0005AB93A /* Vector3.cpp */,
-				8D264A0A1E77C0D0005AB93A /* Vector3.hpp */,
+				F17AF9D81E7EC3C5003016A8 /* EulerAngles.cpp */,
+				F17AF9D91E7EC3C5003016A8 /* EulerAngles.hpp */,
+				F17AF9DA1E7EC3C5003016A8 /* MathUtil.cpp */,
+				F17AF9DB1E7EC3C5003016A8 /* MathUtil.hpp */,
+				F17AF9DC1E7EC3C5003016A8 /* Matrix4x3.cpp */,
+				F17AF9DD1E7EC3C5003016A8 /* Matrix4x3.hpp */,
+				F17AF9DE1E7EC3C5003016A8 /* Quaternion.cpp */,
+				F17AF9DF1E7EC3C5003016A8 /* Quaternion.hpp */,
+				F17AF9E01E7EC3C5003016A8 /* RotationMatrix.cpp */,
+				F17AF9E11E7EC3C5003016A8 /* RotationMatrix.hpp */,
+				F17AF9E21E7EC3C5003016A8 /* TriMesh.cpp */,
+				F17AF9E31E7EC3C5003016A8 /* TriMesh.hpp */,
+				F17AF9E41E7EC3C5003016A8 /* Vector3.cpp */,
+				F17AF9E51E7EC3C5003016A8 /* Vector3.hpp */,
 			);
 			name = Maths;
 			sourceTree = "<group>";
@@ -158,10 +178,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D264A0C1E77C0D0005AB93A /* RotationMatrix.cpp in Sources */,
+				F17AF9EA1E7EC3C5003016A8 /* RotationMatrix.cpp in Sources */,
+				F17AF9E71E7EC3C5003016A8 /* MathUtil.cpp in Sources */,
+				F17AF9EC1E7EC3C5003016A8 /* Vector3.cpp in Sources */,
+				F17AF9EB1E7EC3C5003016A8 /* TriMesh.cpp in Sources */,
 				8D264A031E77C0B1005AB93A /* main.cpp in Sources */,
-				8D264A0D1E77C0D0005AB93A /* Vector3.cpp in Sources */,
-				8D264A0B1E77C0D0005AB93A /* MathUtil.cpp in Sources */,
+				F17AF9E81E7EC3C5003016A8 /* Matrix4x3.cpp in Sources */,
+				F17AF9E91E7EC3C5003016A8 /* Quaternion.cpp in Sources */,
+				F17AF9E61E7EC3C5003016A8 /* EulerAngles.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

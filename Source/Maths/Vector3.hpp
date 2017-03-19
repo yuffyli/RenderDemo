@@ -54,7 +54,8 @@ public:
     
     bool operator != (const Vector3 &rhs) const
     {
-        return (x!=rhs.x || y!=rhs.y || z!=rhs.z);
+        return !(*this == rhs);
+        //return (x!=rhs.x || y!=rhs.y || z!=rhs.z);
     }
     
     // 置为零向量
@@ -146,42 +147,45 @@ public:
         }
     }
     
-    
-    // 向量的叉乘
-    
 public:
     float x;
     float y;
     float z;
 };
 
-const Vector3 operator + (const Vector3 &lhs, const Vector3 &rhs)
+
+// 向量相加
+inline Vector3 operator + (const Vector3 &lhs, const Vector3 &rhs)
 {
     return Vector3(lhs) += rhs;
 }
 
-const Vector3 operator - (const Vector3 &lhs, const Vector3 &rhs)
+// 向量相减
+inline Vector3 operator - (const Vector3 &lhs, const Vector3 &rhs)
 {
     return Vector3(lhs) -= rhs;
 }
 
-const Vector3 operator * (const Vector3 &lhs, float k)
+// 向量左乘标量
+inline Vector3 operator * (const Vector3 &lhs, float k)
 {
     return Vector3(lhs) *= k;
 }
 
-const Vector3 operator * (float k, const Vector3 &rhs)
+// 标量左乘
+inline Vector3 operator * (float k, const Vector3 &rhs)
 {
     return Vector3(rhs) *= k;
 }
 
-const Vector3 operator / (const Vector3 &lhs, float k)
-{
-    return Vector3(lhs) /= k;
-}
+//// 向量除以标量
+//const Vector3 operator / (const Vector3 &lhs, float k)
+//{
+//    return Vector3(lhs) /= k;
+//}
 
 // 计算向量大小（模）
-inline float vectorModule(const Vector3 &v)
+inline float vectorMag(const Vector3 &v)
 {
     return  sqrt(v.x*v.x + v.y*v.y + v.z*v.z);
 }
@@ -203,6 +207,15 @@ inline float distance(const Vector3 &lhs, const Vector3 &rhs)
     float dy = lhs.y - rhs.y;
     float dz = lhs.z - rhs.z;
     return sqrt(dx*dx + dy*dy + dz*dz);
+}
+
+// 距离平方
+inline float distanceSquared(const Vector3 &lhs, const Vector3 &rhs)
+{
+    float dx = lhs.x - rhs.x;
+    float dy = lhs.y - rhs.y;
+    float dz = lhs.z - rhs.z;
+    return (dx*dx + dy*dy + dz*dz);
 }
 
 

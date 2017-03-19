@@ -10,9 +10,9 @@
 
 float wrapPI(float theta)
 {
-    theta += kPI;
-    theta -= floorf(theta * k1Over2PI)*k2PI;
-    theta -= kPI;
+    theta += kPi;
+    theta -= floor(theta * k1Over2Pi)*k2Pi;
+    theta -= kPi;
     return theta;
 }
 
@@ -21,7 +21,7 @@ float safeAcos(float x)
     //  先进行边界检查
     if (x <= -1.0f)
     {
-        return kPI;
+        return kPi;
     }
     
     if (x >= 1.0f)
