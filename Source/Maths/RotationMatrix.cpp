@@ -20,7 +20,7 @@ void RotationMatrix::identity()
     m31 = .0f; m32 = .0f; m33 = 1.0f;
 }
 
-void RotationMatrix::fromEulerAngles(const EulerAngles &orientation)
+void RotationMatrix::setup(const EulerAngles &orientation)
 {
     float sh, sp, sb;
     float ch, cp, cb;

@@ -23,7 +23,7 @@ public:
     void identity();
     
     // 根据欧拉角指定的方位构造矩阵
-    void fromEulerAngles(const EulerAngles &orientation);
+    void setup(const EulerAngles &orientation);
     
     // 根据四元数指定的方位构造矩阵
     void fromInertialToObjectQuaternion(const Quaternion &q);
