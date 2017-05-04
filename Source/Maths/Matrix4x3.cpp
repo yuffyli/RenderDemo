@@ -332,6 +332,13 @@ void Matrix4x3::setupReflect(const Vector3 &n)
 }
 
 
+void Matrix4x3::setupLookAt(const Vector3 &eye, const Vector3 &at, const Vector3 &up)
+{
+	Vector3 axisX, axisY, axisZ;
+	axisZ = at - eye;
+
+}
+
 //////////////////////////////////////////////////////////////////////////
 Vector3 operator * (const Vector3 &p, const Matrix4x3 &m)
 {

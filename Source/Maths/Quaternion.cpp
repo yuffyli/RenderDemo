@@ -13,7 +13,7 @@
 #include "EulerAngles.hpp"
 #include "MathUtil.hpp"
 
-const Quaternion kQuaternionIdentity = {1.0f, .0f, .0f, .0f};
+const Quaternion kQuaternionIdentity = Quaternion(1.0f, .0f, .0f, .0f);
 
 void Quaternion::normalize()
 {

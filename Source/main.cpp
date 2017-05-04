@@ -28,16 +28,122 @@
 //    glFlush();
 //}
 
-// 程序入口
-int main(int argc, char * argv[])
-{
-    ////窗口初始化
-    //glutInit(&argc, argv);
-    ////创建一个名为Demo的窗口
-    //glutCreateWindow("Demo");
-    ////绘图函数
-    //glutDisplayFunc(display);
-    //glutMainLoop();
+#define WIN32_LEAN_AND_MEAN 
 
-	return 0;
+#include <Windows.h>
+#include <WindowsX.h>
+#include <stdio.h>
+#include <math.h>
+
+#define MY_WINDOW_CLASS_NAME "RenderDemoWin"
+#define MY_WINDOW_CLASS_TITLE	"My RenderDemo"
+#define MY_WINDOW_W 600
+#define MY_WINDOW_H 600
+
+//////////////////////////////////////////////////////////////////////////
+HWND mainWindowHandle = NULL; // 用于保存窗口句柄的全局变量
+HINSTANCE mainInstance = NULL;		// 用于保存实例的全局变量
+
+
+//////////////////////////////////////////////////////////////////////////
+LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
+{
+	PAINTSTRUCT ps;
+	HDC hdc;
+
+	switch(msg)
+	{
+	case WM_CREATE:
+		{
+			return 0;
+		}
+		break;
+	case WM_PAINT:
+		{
+			hdc = BeginPaint(hwnd, &ps);
+			EndPaint(hwnd, &ps);
+
+			return 0;
+		}
+		break;
+	case WM_DESTROY:
+		{
+			PostQuitMessage(0);
+
+			return 0;
+		}
+		break;
+	default:
+		break;
+	}
+
+	return DefWindowProc(hwnd, msg, wparam, lparam);
 }
+
+int WINAPI WinMain( __in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, __in LPSTR lpCmdLine, __in int nShowCmd )
+{
+	WNDCLASSEX winclass;
+	HWND hwnd;
+	MSG msg;
+
+	winclass.cbSize = sizeof(WNDCLASSEX);
+	winclass.style = CS_DBLCLKS | CS_OWNDC | CS_HREDRAW | CS_VREDRAW;
+	winclass.lpfnWndProc = WindowProc;
+	winclass.cbClsExtra = 0;
+	winclass.cbWndExtra = 0;
+	winclass.hInstance = hInstance;
+	winclass.hIcon	= LoadIcon(NULL, IDI_APPLICATION);
+	winclass.hCursor = LoadCursor(NULL, IDC_ARROW);
+	winclass.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
+	winclass.lpszMenuName = NULL;
+	winclass.lpszClassName = MY_WINDOW_CLASS_NAME;
+	winclass.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
+
+	if (!RegisterClassEx(&winclass))
+	{
+		return 0;
+	}
+
+	if (!(hwnd = CreateWindowEx(
+		NULL, 
+		MY_WINDOW_CLASS_NAME,
+		MY_WINDOW_CLASS_TITLE,
+		WS_OVERLAPPEDWINDOW | WS_VISIBLE,
+		0, 0,
+		MY_WINDOW_W, MY_WINDOW_H,
+		NULL,
+		NULL,
+		hInstance,
+		NULL)))
+	{
+		return 0;
+	}
+
+	mainWindowHandle = hwnd;
+	mainInstance = hInstance;
+
+	while (GetMessage(&msg, NULL, 0, 0))
+	{
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+
+	return (msg.wParam);
+}
+
+
+
+// 程序入口
+//int main(int argc, char * argv[])
+//{
+//
+//    ////窗口初始化
+//    //glutInit(&argc, argv);
+//    ////创建一个名为Demo的窗口
+//    //glutCreateWindow("Demo");
+//    ////绘图函数
+//    //glutDisplayFunc(display);
+//    //glutMainLoop();
+//
+//	return 0;
+//}

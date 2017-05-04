@@ -35,7 +35,7 @@ inline float degreeToRadian(float degree)
 // 弧度转角度
 inline float RadianToDegree(float radian)
 {
-    return radian * kPiOver180;
+    return radian * k180OverPi;
 }
 
 // 视场中的缩放(zoom)和视场角(fov)之间的转换

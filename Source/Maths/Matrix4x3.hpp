@@ -60,6 +60,9 @@ public:
     void setupReflect(int axis, float k = .0f);
     // 构造沿任意平面反射的矩阵
     void setupReflect(const Vector3 &n);
+
+	// 设置摄像机
+	void setupLookAt(const Vector3 &eye, const Vector3 &at, const Vector3 &up);
     
 public:
     /* 

@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Maths">
+      <UniqueIdentifier>{0ec3ca47-457b-418b-811f-6b746d3e5cf9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -24,9 +27,69 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\Maths\EulerAngles.hpp">
+      <Filter>Source Files\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Maths\MathUtil.hpp">
+      <Filter>Source Files\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Maths\Matrix4x3.hpp">
+      <Filter>Source Files\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Maths\Quaternion.hpp">
+      <Filter>Source Files\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Maths\RotationMatrix.hpp">
+      <Filter>Source Files\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Maths\TriMesh.hpp">
+      <Filter>Source Files\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Maths\Vector3.hpp">
+      <Filter>Source Files\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Device.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Maths\Plane.hpp">
+      <Filter>Source Files\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Camera.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Maths\EulerAngles.cpp">
+      <Filter>Source Files\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Maths\MathUtil.cpp">
+      <Filter>Source Files\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Maths\Matrix4x3.cpp">
+      <Filter>Source Files\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Maths\Quaternion.cpp">
+      <Filter>Source Files\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Maths\RotationMatrix.cpp">
+      <Filter>Source Files\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Maths\TriMesh.cpp">
+      <Filter>Source Files\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Maths\Vector3.cpp">
+      <Filter>Source Files\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Device.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Maths\Plane.cpp">
+      <Filter>Source Files\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
