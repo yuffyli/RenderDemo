@@ -24,8 +24,11 @@ enum CameraType
 class Camera
 {
 public:
-	init(CameraType ty, const Vector3 &pos, const Vector3 &dir, const Vector3 &target, const Vector3 &v, float fov, float nearZ, float farZ, float width, float height);
-private:
+	void init(CameraType ty, const Vector3 &pos, const Vector3 &dir, const Vector3 &target, const Vector3 &v, float fov, float nearZ, float farZ, float width, float height);
+    
+    void updateMatrix();
+    
+public:
 	CameraType m_camTy; // 相机类型
 	Vector3 m_posCamera; // 相机的世界坐标
 	Vector3 m_direction; // 默认朝向

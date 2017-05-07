@@ -10,7 +10,7 @@
 #include "MathUtil.hpp"
 
 
-Camera::init(CameraType ty, const Vector3 &pos, const Vector3 &dir, const Vector3 &target, const Vector3 &v, float fov, float nearZ, float farZ, float width, float height)
+void Camera::init(CameraType ty, const Vector3 &pos, const Vector3 &dir, const Vector3 &target, const Vector3 &v, float fov, float nearZ, float farZ, float width, float height)
 {
 	m_camTy = ty;
 	m_posCamera = pos;
@@ -28,7 +28,7 @@ Camera::init(CameraType ty, const Vector3 &pos, const Vector3 &dir, const Vector
 	m_fViewPlaneWidth = 2.0f;
 	m_fViewPlaneHeight = 2.0f/m_fAspectRatio;
 
-	if (m_fFOV == 90)
+	if (m_fFOV == 90.0f)
 	{
 		m_fViewDistance = 1.0f;
 	}
@@ -37,7 +37,51 @@ Camera::init(CameraType ty, const Vector3 &pos, const Vector3 &dir, const Vector
 		m_fViewDistance = .5f * m_fViewPlaneWidth * fovToZoom(degreeToRadian(m_fFOV));
 	}
 
-	Vector3 vecN(m_fViewDistance, 0, -1);
-	m_planeClipRight.init(kZeroVector, vecN, true);
+    // 面法向量
+    Vector3 vecN;
+    // 上裁剪面
+    vecN.set(.0f, m_fViewDistance, -1.0f/m_fAspectRatio);
+    m_planeClipTop.set(kZeroVector, vecN, true);
+    
+    // 下裁剪面
+    vecN.set(.0f, -m_fViewDistance, -1.0f/m_fAspectRatio);
+    m_planeClipBottom.set(kZeroVector, vecN, true);
+    
+    // 左裁剪面
+    vecN.set(-m_fViewDistance, .0f, -1.0f);
+    m_planeClipLeft.set(kZeroVector, vecN, true);
+    
+    // 右裁剪面
+    vecN.set(m_fViewDistance, .0f, -1.0f);
+    m_planeClipRight.set(kZeroVector, vecN, true);
+}
 
+void Camera::updateMatrix()
+{
+    // 根据相机位置创建平移矩阵（逆矩阵）
+    Matrix4x3 matrixMove;
+    matrixMove.setupTranslation(-m_posCamera);
+    
+    // 根据目标位置创建旋转矩阵（逆矩阵）
+    Matrix4x3 matrixUVN;
+    if(m_camTy == CAMERA_EULER)
+    {
+    }
+    else if (m_camTy == CAMERA_UVN)
+    {
+        m_N = m_posTarget - m_posCamera;
+        m_N.normalize();
+        
+        m_U = crossProduct(m_V, m_N);
+        m_U.normalize();
+        
+        m_V = crossProduct(m_N, m_U);
+        matrixUVN.setUVN(m_U, m_V, m_N);
+    }
+    
+    m_matrixCamera = matrixMove*matrixUVN;
+    
+    m_matrixProjection.setupProjection(m_fViewDistance);
+    
+    m_matrixScreen.setupScreen(m_fScreenWidth, m_fScreenHeight);
 }

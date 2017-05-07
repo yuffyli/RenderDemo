@@ -14,7 +14,7 @@
 struct Plane
 {
 public:
-	void init(const Vector3 &p0, const Vector3 &n0, bool bNormalize)
+	void set(const Vector3 &p0, const Vector3 &n0, bool bNormalize)
 	{
 		p = p0;
 		n = n0;

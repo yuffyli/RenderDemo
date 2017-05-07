@@ -46,6 +46,40 @@ void Matrix4x3::setupTranslation(const Vector3 &d)
     tx = d.x; ty = d.y; tz = d.z;
 }
 
+void Matrix4x3::setUVN(const Vector3 &u, const Vector3 &v, const Vector3 &n)
+{
+    m11 = u.x; m12 = v.x; m13 = n.x;
+    m21 = u.y; m22 = v.y; m23 = n.y;
+    m31 = u.z; m32 = v.z; m33 = n.z;
+}
+
+void Matrix4x3::setupUVN(const Vector3 &u, const Vector3 &v, const Vector3 &n)
+{
+    m11 = u.x; m12 = v.x; m13 = n.x;
+    m21 = u.y; m22 = v.y; m23 = n.y;
+    m31 = u.z; m32 = v.z; m33 = n.z;
+    
+    tx = .0f; ty = .0f; tz = .0f;
+}
+
+void Matrix4x3::setupProjection(float d)
+{
+    m11 = d; m12 = .0f; m13 = .0f;
+    m21 = .0f; m22 = d; m23 = .0f;
+    m31 = .0f; m32 = .0f; m33 = 1.0f;
+    
+    tx = .0f; ty = .0f; tz = .0f;
+}
+
+void Matrix4x3::setupScreen(float w, float h)
+{
+    m11 = 0.5f*w; m12 = .0f; m13 = .0f;
+    m21 = .0f; m22 = -0.5f*w; m23 = .0f;
+    m31 = .0f; m32 = .0f; m33 = 1.0f;
+    
+    tx = 0.5f*w, ty = 0.5f*h, tz = .0f;
+}
+
 void Matrix4x3::setupLocalToParent(const Vector3 &pos, const EulerAngles &orient)
 {
     RotationMatrix orientMatrix;
@@ -335,7 +369,7 @@ void Matrix4x3::setupReflect(const Vector3 &n)
 void Matrix4x3::setupLookAt(const Vector3 &eye, const Vector3 &at, const Vector3 &up)
 {
 	Vector3 axisX, axisY, axisZ;
-	axisZ = at - eye;
+//	axisZ = at - eye;
 
 }
 

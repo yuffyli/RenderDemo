@@ -22,12 +22,16 @@ public:
     // 置为单位矩阵
     void identity();
     
+    // 根据uvn向量构造矩阵
+    void setupUVN(const Vector3 &u, const Vector3 &v, const Vector3 &n);
+    
     // 根据欧拉角指定的方位构造矩阵
     void setup(const EulerAngles &orientation);
     
     // 根据四元数指定的方位构造矩阵
     void fromInertialToObjectQuaternion(const Quaternion &q);
     void fromObjectToInertialQuaternion(const Quaternion &q);
+    
     
     Vector3 inertialToObject(const Vector3 &v) const;
     Vector3 objectToInertial(const Vector3 &v) const;
@@ -47,5 +51,6 @@ public:
     float m31, m32, m33;
 };
 
+RotationMatrix inverse(const RotationMatrix &m);
 
 #endif /* RotationMatrix_hpp */

@@ -29,6 +29,16 @@ public:
     void setTranslation(const Vector3 &d);
     void setupTranslation(const Vector3 &d);
     
+    // 根据UVN向量构造变换矩阵
+    void setUVN(const Vector3 &u, const Vector3 &v, const Vector3 &n);
+    void setupUVN(const Vector3 &u, const Vector3 &v, const Vector3 &n);
+    
+    //  根据视距d构造投影矩阵
+    void setupProjection(float d);
+    
+    // 根据屏幕宽高构造屏幕变换矩阵
+    void setupScreen(float w, float h);
+    
     // 构造父坐标与局部空间之间的变换矩阵
     // 物体空间到世界空间的变换，首先从 物体空间 -> 惯性空间 -> 世界空间，方位由欧拉角或旋转矩阵指定
     void setupLocalToParent(const Vector3 &pos, const EulerAngles &orient);

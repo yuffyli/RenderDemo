@@ -33,6 +33,13 @@ public:
     {
     }
     
+    void set(float newX, float newY, float newZ)
+    {
+        x = newX;
+        y = newY;
+        z = newZ;
+    }
+    
     Vector3 &operator = (const Vector3 &rhs)
     {
         if (this == &rhs)
@@ -160,11 +167,11 @@ inline Vector3 operator + (const Vector3 &lhs, const Vector3 &rhs)
     return Vector3(lhs) += rhs;
 }
 
-// 向量相减
-inline Vector3 operator - (const Vector3 &lhs, const Vector3 &rhs)
-{
-    return Vector3(lhs) -= rhs;
-}
+//// 向量相减
+//inline Vector3 operator - (const Vector3 &lhs, const Vector3 &rhs)
+//{
+//    return Vector3(lhs) -= rhs;
+//}
 
 // 向量左乘标量
 inline Vector3 operator * (const Vector3 &lhs, float k)
@@ -221,5 +228,7 @@ inline float distanceSquared(const Vector3 &lhs, const Vector3 &rhs)
 
 // 全局零向量
 extern const Vector3 kZeroVector;
+
+#define Point3  Vector3
 
 #endif /* Vector3_hpp */

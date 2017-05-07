@@ -20,6 +20,13 @@ void RotationMatrix::identity()
     m31 = .0f; m32 = .0f; m33 = 1.0f;
 }
 
+void RotationMatrix::setupUVN(const Vector3 &u, const Vector3 &v, const Vector3 &n)
+{
+    m11 = u.x; m12 = u.y; m13 = u.z;
+    m21 = v.x; m22 = v.y; m23 = v.z;
+    m31 = n.x; m32 = n.y; m33 = n.z;
+}
+
 void RotationMatrix::setup(const EulerAngles &orientation)
 {
     float sh, sp, sb;
@@ -97,4 +104,16 @@ Vector3 RotationMatrix::objectToInertial(const Vector3 &v) const
                    m21*v.x + m22*v.y + m23*v.z,
                    m31*v.z + m32*v.y + m33*v.z
                    );
+}
+
+
+
+RotationMatrix inverse(const RotationMatrix &m)
+{
+    RotationMatrix r;
+    r.m11 = m.m11; r.m12 = m.m21; r.m13 = m.m31;
+    r.m21 = m.m12; r.m22 = m.m22; r.m23 = m.m32;
+    r.m31 = m.m13; r.m32 = m.m23; r.m33 = m.m33;
+    
+    return r;
 }

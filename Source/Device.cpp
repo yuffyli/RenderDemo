@@ -32,10 +32,10 @@ void Transform::updateTransform()
 	m_transform = m_world * m_view * m_projection;
 }
 
-void Transform::setCamerAtZero(const Vector3 &eye)
-{
-	Vector3 at = kZeroVector;
-	Vector3 up(0, 0, 1);
-	m_view.setupLookAt(eye, at, up);
-	updateTransform();
-}
+//void Transform::setCamerAtZero(const Vector3 &eye)
+//{
+//	Vector3 at = kZeroVector;
+//	Vector3 up(0, 0, 1);
+//	m_view.setupLookAt(eye, at, up);
+//	updateTransform();
+//}

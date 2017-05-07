@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		8D264A031E77C0B1005AB93A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8D264A021E77C0B1005AB93A /* main.cpp */; };
+		F12A411B1EBCC5D300B18B83 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F12A41171EBCC5D300B18B83 /* Camera.cpp */; };
+		F12A411C1EBCC5D300B18B83 /* Device.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F12A41191EBCC5D300B18B83 /* Device.cpp */; };
+		F12A411F1EBCCF9800B18B83 /* Plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F12A411D1EBCCF9800B18B83 /* Plane.cpp */; };
+		F12A41221EBDF1AC00B18B83 /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F12A41201EBDF1AC00B18B83 /* Object.cpp */; };
 		F14916681E7397C200B50920 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F14916671E7397C200B50920 /* OpenGL.framework */; };
 		F149166A1E7397D700B50920 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F14916691E7397D700B50920 /* GLUT.framework */; };
 		F17AF9E61E7EC3C5003016A8 /* EulerAngles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F17AF9D81E7EC3C5003016A8 /* EulerAngles.cpp */; };
@@ -33,6 +37,15 @@
 
 /* Begin PBXFileReference section */
 		8D264A021E77C0B1005AB93A /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../Source/main.cpp; sourceTree = "<group>"; };
+		F12A41171EBCC5D300B18B83 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Camera.cpp; path = ../../Source/Camera.cpp; sourceTree = "<group>"; };
+		F12A41181EBCC5D300B18B83 /* Camera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Camera.hpp; path = ../../Source/Camera.hpp; sourceTree = "<group>"; };
+		F12A41191EBCC5D300B18B83 /* Device.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Device.cpp; path = ../../Source/Device.cpp; sourceTree = "<group>"; };
+		F12A411A1EBCC5D300B18B83 /* Device.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Device.hpp; path = ../../Source/Device.hpp; sourceTree = "<group>"; };
+		F12A411D1EBCCF9800B18B83 /* Plane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Plane.cpp; path = ../../Source/Maths/Plane.cpp; sourceTree = "<group>"; };
+		F12A411E1EBCCF9800B18B83 /* Plane.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Plane.hpp; path = ../../Source/Maths/Plane.hpp; sourceTree = "<group>"; };
+		F12A41201EBDF1AC00B18B83 /* Object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Object.cpp; sourceTree = "<group>"; };
+		F12A41211EBDF1AC00B18B83 /* Object.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Object.hpp; sourceTree = "<group>"; };
+		F12A41271EBDF53400B18B83 /* Macro.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Macro.hpp; sourceTree = "<group>"; };
 		F149165C1E73974800B50920 /* RenderDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RenderDemo; sourceTree = BUILT_PRODUCTS_DIR; };
 		F14916671E7397C200B50920 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		F14916691E7397D700B50920 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
@@ -68,6 +81,8 @@
 		8D264A041E77C0BA005AB93A /* Maths */ = {
 			isa = PBXGroup;
 			children = (
+				F12A411D1EBCCF9800B18B83 /* Plane.cpp */,
+				F12A411E1EBCCF9800B18B83 /* Plane.hpp */,
 				F17AF9D81E7EC3C5003016A8 /* EulerAngles.cpp */,
 				F17AF9D91E7EC3C5003016A8 /* EulerAngles.hpp */,
 				F17AF9DA1E7EC3C5003016A8 /* MathUtil.cpp */,
@@ -89,8 +104,15 @@
 		F10312681E73ABD70096672C /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				F12A41171EBCC5D300B18B83 /* Camera.cpp */,
+				F12A41181EBCC5D300B18B83 /* Camera.hpp */,
+				F12A41191EBCC5D300B18B83 /* Device.cpp */,
+				F12A411A1EBCC5D300B18B83 /* Device.hpp */,
 				8D264A041E77C0BA005AB93A /* Maths */,
 				8D264A021E77C0B1005AB93A /* main.cpp */,
+				F12A41201EBDF1AC00B18B83 /* Object.cpp */,
+				F12A41211EBDF1AC00B18B83 /* Object.hpp */,
+				F12A41271EBDF53400B18B83 /* Macro.hpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -179,9 +201,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F17AF9EA1E7EC3C5003016A8 /* RotationMatrix.cpp in Sources */,
+				F12A411C1EBCC5D300B18B83 /* Device.cpp in Sources */,
+				F12A41221EBDF1AC00B18B83 /* Object.cpp in Sources */,
 				F17AF9E71E7EC3C5003016A8 /* MathUtil.cpp in Sources */,
 				F17AF9EC1E7EC3C5003016A8 /* Vector3.cpp in Sources */,
+				F12A411F1EBCCF9800B18B83 /* Plane.cpp in Sources */,
 				F17AF9EB1E7EC3C5003016A8 /* TriMesh.cpp in Sources */,
+				F12A411B1EBCC5D300B18B83 /* Camera.cpp in Sources */,
 				8D264A031E77C0B1005AB93A /* main.cpp in Sources */,
 				F17AF9E81E7EC3C5003016A8 /* Matrix4x3.cpp in Sources */,
 				F17AF9E91E7EC3C5003016A8 /* Quaternion.cpp in Sources */,
