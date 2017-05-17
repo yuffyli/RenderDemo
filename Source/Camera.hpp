@@ -15,25 +15,20 @@
 #include "Plane.hpp"
 #include "Matrix4x3.hpp"
 
-enum CameraType
-{
-	CAMERA_EULER = 0,	// 欧拉相机
-	CAMERA_UVN,			// UVN相机
-};
 
 class Camera
 {
 public:
-	void init(CameraType ty, const Vector3 &pos, const Vector3 &dir, const Vector3 &target, const Vector3 &v, float fov, float nearZ, float farZ, float width, float height);
+	void init(int ty, const Point3 &pos, const Vector3 &dir, const Point3 &target, const Vector3 &v, float fov, float nearZ, float farZ, float width, float height);
     
     void updateMatrix();
     
 public:
-	CameraType m_camTy; // 相机类型
-	Vector3 m_posCamera; // 相机的世界坐标
+	int m_camTy; // 相机类型
+	Point3 m_posCamera; // 相机的世界坐标
 	Vector3 m_direction; // 默认朝向
 	Vector3 m_U, m_V, m_N; // UVN向量
-	Vector3 m_posTarget; // 目标点的坐标
+	Point3 m_posTarget; // 目标点的坐标
 	float m_fFOV; // 视场角
 	float m_fViewDistance; // 视距
 	float m_fNearZ;	 // 近裁剪距离

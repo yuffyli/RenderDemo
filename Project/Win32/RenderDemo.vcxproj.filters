@@ -16,6 +16,9 @@
     <Filter Include="Source Files\Maths">
       <UniqueIdentifier>{0ec3ca47-457b-418b-811f-6b746d3e5cf9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Maths">
+      <UniqueIdentifier>{d2a790d3-299f-483c-ad0c-9f1834f5f5b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -28,34 +31,37 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Maths\EulerAngles.hpp">
-      <Filter>Source Files\Maths</Filter>
+      <Filter>Header Files\Maths</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Maths\MathUtil.hpp">
-      <Filter>Source Files\Maths</Filter>
+      <Filter>Header Files\Maths</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Maths\Matrix4x3.hpp">
-      <Filter>Source Files\Maths</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Maths\Quaternion.hpp">
-      <Filter>Source Files\Maths</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Maths\RotationMatrix.hpp">
-      <Filter>Source Files\Maths</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Maths\TriMesh.hpp">
-      <Filter>Source Files\Maths</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Maths\Vector3.hpp">
-      <Filter>Source Files\Maths</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Device.hpp">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files\Maths</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Maths\Plane.hpp">
-      <Filter>Source Files\Maths</Filter>
+      <Filter>Header Files\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Maths\Quaternion.hpp">
+      <Filter>Header Files\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Maths\RotationMatrix.hpp">
+      <Filter>Header Files\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Maths\Vector3.hpp">
+      <Filter>Header Files\Maths</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Camera.hpp">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Macro.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Object.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Render.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -83,13 +89,16 @@
     <ClCompile Include="..\..\Source\Maths\Vector3.cpp">
       <Filter>Source Files\Maths</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Device.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\Maths\Plane.cpp">
       <Filter>Source Files\Maths</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Object.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Render.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -11,6 +11,28 @@
 
 #include <stdio.h>
 
+typedef signed char			char_t;
+typedef unsigned char		uchar_t;
+typedef signed short			short_t;
+typedef unsigned short      ushort_t;
+typedef signed int			int_t;
+typedef unsigned int        uint_t;
+typedef signed long			long_t;
+typedef unsigned long       ulong_t;
+
+typedef signed char			int8_t;
+typedef unsigned char		uint8_t;
+typedef signed short		int16_t;
+typedef unsigned short		uint16_t;
+typedef signed int			int32_t;
+typedef unsigned int		uint32_t;
+
+// 窗口相关定义
+#define MY_WINDOW_CLASS_NAME "RenderDemoWin"
+#define MY_WINDOW_CLASS_TITLE	"My RenderDemo"
+#define SCREEN_WIDTH 600
+#define SCREEN_HEIGHT 600
+
 // 相机类型
 #define CAMERA_TYPE_ELUER 1
 #define CAMERA_TYPE_UVN 2
@@ -49,6 +71,11 @@
 #define RENDER_TRANSFORM_LOCAL 1
 #define RENDER_TRANSFORM_TRANS 2
 #define RENDER_TRANSFORM_LOCALTOTRANS 3
+
+// 渲染方式
+#define RENDER_STATE_WIREFRAME 0x0001
+#define RENDER_STATE_TEXTURE 0x0002
+#define RENDER_STATE_COLOR 0x0004
 
 
 #define SET_BIT(word,bit_flag)   ((word)=((word) | (bit_flag)))

@@ -50,6 +50,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\Source\Maths;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/wd4430 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -77,21 +78,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\Camera.hpp" />
-    <ClInclude Include="..\..\Source\Device.hpp" />
+    <ClInclude Include="..\..\Source\Macro.hpp" />
     <ClInclude Include="..\..\Source\Maths\EulerAngles.hpp" />
     <ClInclude Include="..\..\Source\Maths\MathUtil.hpp" />
     <ClInclude Include="..\..\Source\Maths\Matrix4x3.hpp" />
     <ClInclude Include="..\..\Source\Maths\Plane.hpp" />
     <ClInclude Include="..\..\Source\Maths\Quaternion.hpp" />
     <ClInclude Include="..\..\Source\Maths\RotationMatrix.hpp" />
-    <ClInclude Include="..\..\Source\Maths\TriMesh.hpp" />
     <ClInclude Include="..\..\Source\Maths\Vector3.hpp" />
+    <ClInclude Include="..\..\Source\Object.hpp" />
+    <ClInclude Include="..\..\Source\Render.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\Camera.cpp" />
-    <ClCompile Include="..\..\Source\Device.cpp" />
     <ClCompile Include="..\..\Source\main.cpp" />
     <ClCompile Include="..\..\Source\Maths\EulerAngles.cpp" />
     <ClCompile Include="..\..\Source\Maths\MathUtil.cpp" />
@@ -101,6 +102,8 @@
     <ClCompile Include="..\..\Source\Maths\RotationMatrix.cpp" />
     <ClCompile Include="..\..\Source\Maths\TriMesh.cpp" />
     <ClCompile Include="..\..\Source\Maths\Vector3.cpp" />
+    <ClCompile Include="..\..\Source\Object.cpp" />
+    <ClCompile Include="..\..\Source\Render.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

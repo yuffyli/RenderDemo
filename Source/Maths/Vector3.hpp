@@ -33,7 +33,7 @@ public:
     {
     }
     
-    void set(float newX, float newY, float newZ)
+    void setup(float newX, float newY, float newZ)
     {
         x = newX;
         y = newY;

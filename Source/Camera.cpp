@@ -8,9 +8,10 @@
 
 #include "Camera.hpp"
 #include "MathUtil.hpp"
+#include "Macro.hpp"
 
 
-void Camera::init(CameraType ty, const Vector3 &pos, const Vector3 &dir, const Vector3 &target, const Vector3 &v, float fov, float nearZ, float farZ, float width, float height)
+void Camera::init(int ty, const Point3 &pos, const Vector3 &dir, const Point3 &target, const Vector3 &v, float fov, float nearZ, float farZ, float width, float height)
 {
 	m_camTy = ty;
 	m_posCamera = pos;
@@ -40,19 +41,19 @@ void Camera::init(CameraType ty, const Vector3 &pos, const Vector3 &dir, const V
     // 面法向量
     Vector3 vecN;
     // 上裁剪面
-    vecN.set(.0f, m_fViewDistance, -1.0f/m_fAspectRatio);
+    vecN.setup(.0f, m_fViewDistance, -1.0f/m_fAspectRatio);
     m_planeClipTop.set(kZeroVector, vecN, true);
     
     // 下裁剪面
-    vecN.set(.0f, -m_fViewDistance, -1.0f/m_fAspectRatio);
+    vecN.setup(.0f, -m_fViewDistance, -1.0f/m_fAspectRatio);
     m_planeClipBottom.set(kZeroVector, vecN, true);
     
     // 左裁剪面
-    vecN.set(-m_fViewDistance, .0f, -1.0f);
+    vecN.setup(-m_fViewDistance, .0f, -1.0f);
     m_planeClipLeft.set(kZeroVector, vecN, true);
     
     // 右裁剪面
-    vecN.set(m_fViewDistance, .0f, -1.0f);
+    vecN.setup(m_fViewDistance, .0f, -1.0f);
     m_planeClipRight.set(kZeroVector, vecN, true);
 }
 
@@ -64,10 +65,10 @@ void Camera::updateMatrix()
     
     // 根据目标位置创建旋转矩阵（逆矩阵）
     Matrix4x3 matrixUVN;
-    if(m_camTy == CAMERA_EULER)
+    if(m_camTy == CAMERA_TYPE_ELUER)
     {
     }
-    else if (m_camTy == CAMERA_UVN)
+    else if (m_camTy == CAMERA_TYPE_UVN)
     {
         m_N = m_posTarget - m_posCamera;
         m_N.normalize();

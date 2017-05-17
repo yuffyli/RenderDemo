@@ -16,7 +16,7 @@ void Object::reset()
     // 重置多边形的被裁剪标记和背面标记
     for (int i = 0; i < nPolyCnt; ++i)
     {
-        Polygon &poly = polyList[i];
+        Poly &poly = polyList[i];
         
         // 如果多边形不可见，跳过
         if (! (poly.nState & POLY_STATE_ACTIVE))
@@ -29,7 +29,7 @@ void Object::reset()
     }
 }
 
-void Object::cull(const Camera &cam, int nCullFlag)
+void Object::cullObject(const Camera &cam, int nCullFlag)
 {
     // 包围球中心坐标
     Point3 posSphere;
@@ -68,26 +68,45 @@ void Object::cull(const Camera &cam, int nCullFlag)
     }
 }
 
-void Object::deleteBackface(const Camera &cam)
+void Object::removeBackfaces(const Camera &cam)
 {
     // 在执行世界坐标到相机坐标变换之前执行背面消除
     
     // 把物体背面的多边形标记为POLY_STATE_BACKFACE
     for (int i = 0; i < nPolyCnt; ++i)
     {
-        
-        Polygon &poly = polyList[i];
-        int idx0 = poly.vertexIndex[0];
-        int idx1 = poly.vertexIndex[1];
-        int idx2 = poly.vertexIndex[2];
-        
-        Vector3 u = vertexListTrans[idx1] - vertexListTrans[idx0];
-        Vector3 v = vertexListTrans[idx2] - vertexListTrans[idx0];
-        Vector3 n = crossProduct(u, v);
-        
-        Vector3 view = cam.m_posCamera - vertexListTrans[idx0];
-        
-        float fDotResult = n*view;
-        poly.nState = (fDotResult <= .0f) ? POLY_STATE_BACKFACE : POLY_STATE_ACTIVE;
+		Poly &poly = polyList[i];
+		int idx0 = poly.vertexIndex[0];
+		int idx1 = poly.vertexIndex[1];
+		int idx2 = poly.vertexIndex[2];
+
+		Vector3 u = vertexListTrans[idx1] - vertexListTrans[idx0];
+		Vector3 v = vertexListTrans[idx2] - vertexListTrans[idx0];
+		Vector3 n = crossProduct(u, v);
+
+		Vector3 view = cam.m_posCamera - vertexListTrans[idx0];
+
+		float fDotResult = n*view;
+		poly.nState = (fDotResult <= .0f) ? POLY_STATE_BACKFACE : POLY_STATE_ACTIVE;
     }
+}
+
+void Object::worldTransform()
+{
+
+}
+
+void Object::cameraTransform(const Camera &cam)
+{
+
+}
+
+void Object::projectTransform(const Camera &cam)
+{
+
+}
+
+void Object::screenTranform(const Camera &cam)
+{
+
 }
