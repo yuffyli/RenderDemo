@@ -72,13 +72,23 @@ typedef unsigned int		uint32_t;
 #define RENDER_TRANSFORM_TRANS 2
 #define RENDER_TRANSFORM_LOCALTOTRANS 3
 
+#define TEXTURE_WIDTH 256
+#define TEXTURE_HEIGHT 256
+
+#define COLOR0	0xffffff
+#define COLOR1	0xccffff
+#define COLOR2	0x99ccff
+#define COLOR3	0xff9966
+
+#define SET_BIT(word,bit_flag)   ((word)=((word) | (bit_flag)))
+#define RESET_BIT(word,bit_flag) ((word)=((word) & (~bit_flag)))
+
 // 渲染方式
 #define RENDER_STATE_WIREFRAME 0x0001
 #define RENDER_STATE_TEXTURE 0x0002
 #define RENDER_STATE_COLOR 0x0004
 
+#define RENDER_STATE RENDER_STATE_WIREFRAME
 
-#define SET_BIT(word,bit_flag)   ((word)=((word) | (bit_flag)))
-#define RESET_BIT(word,bit_flag) ((word)=((word) & (~bit_flag)))
 
 #endif /* Macro_hpp */

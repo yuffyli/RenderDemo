@@ -8,6 +8,65 @@
 
 #include "Object.hpp"
 
+void Object::init()
+{
+	static Vertex vertexList[8] = {
+		{ Point3(1.0f, -1.0f,  1.0f), 1, 0, 0, 1 },
+		{ Point3( -1.0f, -1.0f,  1.0f), 1, 0, 1, 1 },
+		{ Point3(-1.0f,  1.0f,  1.0f), 1, 1, 1, 1 },
+		{ Point3( 1.0f,  1.0f,  1.0f), 1, 1, 0 , 1 },
+		{ Point3(1.0f, -1.0f, -1.0f), 1, 0, 0 ,1 },
+		{ Point3(-1.0f, -1.0f, -1.0f), 1, 0, 1 , 1 },
+		{ Point3( -1.0f,  1.0f, -1.0f), 1,  1, 1 , 1 },
+		{ Point3(1.0f,  1.0f, -1.0f), 1,  1, 0 , 1 },
+	};
+
+	nPolyCnt = 6;
+	polyList[0].vertexList = vertexList;
+	polyList[0].vertexIndex[0] = 0;
+	polyList[0].vertexIndex[1] = 1;
+	polyList[0].vertexIndex[2] = 2;
+	polyList[0].vertexIndex[3] = 3;
+	polyList[0].nState = POLY_STATE_ACTIVE;
+
+	polyList[1].vertexList = vertexList;
+	polyList[1].vertexIndex[0] = 4;
+	polyList[1].vertexIndex[1] = 6;
+	polyList[1].vertexIndex[2] = 6;
+	polyList[1].vertexIndex[3] = 7;
+	polyList[1].nState = POLY_STATE_ACTIVE;
+
+	polyList[2].vertexList = vertexList;
+	polyList[2].vertexIndex[0] = 0;
+	polyList[2].vertexIndex[1] = 4;
+	polyList[2].vertexIndex[2] = 5;
+	polyList[2].vertexIndex[3] = 1;
+	polyList[2].nState = POLY_STATE_ACTIVE;
+
+	polyList[3].vertexList = vertexList;
+	polyList[3].vertexIndex[0] = 1;
+	polyList[3].vertexIndex[1] = 5;
+	polyList[3].vertexIndex[2] = 6;
+	polyList[3].vertexIndex[3] = 2;
+	polyList[3].nState = POLY_STATE_ACTIVE;
+
+	polyList[4].vertexList = vertexList;
+	polyList[4].vertexIndex[0] = 2;
+	polyList[4].vertexIndex[1] = 6;
+	polyList[4].vertexIndex[2] = 7;
+	polyList[4].vertexIndex[3] = 3;
+	polyList[4].nState = POLY_STATE_ACTIVE;
+
+	polyList[5].vertexList = vertexList;
+	polyList[5].vertexIndex[0] = 3;
+	polyList[5].vertexIndex[1] = 7;
+	polyList[5].vertexIndex[2] = 4;
+	polyList[5].vertexIndex[3] = 0;
+	polyList[5].nState = POLY_STATE_ACTIVE;
+
+	nVerticesCnt = 8;
+}
+
 void Object::reset()
 {
     // 重置物体被剔除的标记

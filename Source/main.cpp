@@ -36,6 +36,7 @@
 #include <math.h>
 #include "Macro.hpp"
 #include "Object.hpp"
+#include "Render.hpp"
 
 #define KEY_DOWN(vk_code) ((GetAsyncKeyState(vk_code) & 0x8000) ? 1 : 0)
 #define KEY_UP(vk_code) ((GetAsyncKeyState(vk_code) & 0x8000) ? 0 : 1)
@@ -47,7 +48,7 @@ HINSTANCE mainInstance = NULL;		// 用于保存实例的全局变量
 
 Object mainObj;
 Camera mainCam;
-
+Render mainRender;
 
 //////////////////////////////////////////////////////////////////////////
 void GameInit()
@@ -60,6 +61,12 @@ void GameInit()
 	float fFov = 90.0f;
 	mainCam.init(CAMERA_TYPE_UVN, posCam, vecDir, posTarget, vecUp, fFov, 5.0f, 50.0f, SCREEN_WIDTH, SCREEN_HEIGHT);
 	mainCam.updateMatrix();
+
+	// 生成物体
+	mainObj.init();
+
+	// 初始化渲染器
+	mainRender.init();
 }
 
 void GameMain()

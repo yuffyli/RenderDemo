@@ -88,6 +88,7 @@
     <ClInclude Include="..\..\Source\Maths\Vector3.hpp" />
     <ClInclude Include="..\..\Source\Object.hpp" />
     <ClInclude Include="..\..\Source\Render.hpp" />
+    <ClInclude Include="..\..\Source\Texture.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -104,6 +105,7 @@
     <ClCompile Include="..\..\Source\Maths\Vector3.cpp" />
     <ClCompile Include="..\..\Source\Object.cpp" />
     <ClCompile Include="..\..\Source\Render.cpp" />
+    <ClCompile Include="..\..\Source\Texture.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

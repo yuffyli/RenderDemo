@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <math.h>
+#include "..\Macro.hpp"
 
 const float kPi = 3.14159265f;
 const float k2Pi = 2.0f *kPi;
@@ -56,11 +57,31 @@ inline void sinCos(float *returnSin, float *returnCos, float theta)
 	*returnCos = cos(theta);
 }
 
+// 插值
+inline float interpolate(float start, float end, float t)
+{
+	return start + (end - start) * t;
+}
 
+// 四舍五入 
+inline int32_t rounding(float f)
+{
+	return (int32_t)(f + 0.5f);
+}
 
+// 求中间值
+inline int32_t middle(int32_t nMin, int32_t nMax, int32_t x)
+{
+	return (x < nMin) ? nMin : ((x > nMax) ? nMax : x);
+}
 
-
-
+template<class T> 
+void swap(T &a, T &b)
+{
+	T t = a;
+	a = b;
+	b = t;
+}
 
 
 #endif /* MathUtil_hpp */

@@ -161,11 +161,11 @@ public:
 };
 
 
-// 向量相加
-inline Vector3 operator + (const Vector3 &lhs, const Vector3 &rhs)
-{
-    return Vector3(lhs) += rhs;
-}
+//// 向量相加
+//inline Vector3 operator + (const Vector3 &lhs, const Vector3 &rhs)
+//{
+//    return Vector3(lhs) += rhs;
+//}
 
 //// 向量相减
 //inline Vector3 operator - (const Vector3 &lhs, const Vector3 &rhs)
