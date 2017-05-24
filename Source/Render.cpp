@@ -12,10 +12,10 @@
 #include "MathUtil.hpp"
 #include "Texture.hpp"
 
-void Render::init()
+void Render::init(int32_t w, int32_t h, unsigned char *fb)
 {
 	initRenderState();
-	initBuffer();
+	initBuffer(w, h,fb);
 }
 
 void Render::destroy()
@@ -24,7 +24,7 @@ void Render::destroy()
 	{
 		delete []pFrameBuffer[i];
 	}
-	delete []pFrameBuffer;
+	//delete []pFrameBuffer;
 	pFrameBuffer = NULL;
 
 	for (int32_t i = 0; i < nWinHeight; ++i)
@@ -37,24 +37,40 @@ void Render::destroy()
 
 void Render::initRenderState()
 {
-	nRenderState = RENDER_STATE;
+	nRenderState = RENDER_STATE_TEXTURE;
 }
 
-void Render::initBuffer()
+void Render::initBuffer(int32_t w, int32_t h, void *fb)
 {
-	nWinWidth = SCREEN_WIDTH;
-	nWinHeight = SCREEN_HEIGHT;
+	nWinWidth = w;
+	nWinHeight = h;
 
 	pFrameBuffer = new uint32_t *[nWinHeight];
-	for (int32_t j = 0; j < nWinHeight; ++j)
+	//for (int32_t j = 0; j < nWinHeight; ++j)
+	//{
+	//	pFrameBuffer[j] = new uint32_t [nWinWidth];
+	//}
+
+	char *framebuf = (char*)fb;
+
+	for (int32_t j = 0; j < nWinHeight; ++j) 
 	{
-		pFrameBuffer[j] = new uint32_t [nWinWidth];
+		pFrameBuffer[j] = (uint32_t*)(framebuf + nWinWidth * 4 * j);
 	}
+
 
 	pZBuffer = new float *[nWinHeight];
 	for (int32_t j = 0; j < nWinHeight; ++j)
 	{
 		pZBuffer[j] = new float [nWinWidth];
+	}
+
+	for (int32_t j = 0; j < nWinHeight; ++j)
+	{
+		for (int32_t i = 0; i < nWinWidth; ++i)
+		{
+			pFrameBuffer[j][i] = 0x99ccffff;
+		}
 	}
 }
 

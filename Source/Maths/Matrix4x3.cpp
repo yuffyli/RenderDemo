@@ -16,6 +16,11 @@
 #include "Quaternion.hpp"
 #include "RotationMatrix.hpp"
 
+Matrix4x3::Matrix4x3()
+{
+	identity();
+}
+
 void Matrix4x3::identity()
 {
     m11 = 1.0f; m12 = .0f; m13 = .0f;

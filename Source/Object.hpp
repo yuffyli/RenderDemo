@@ -26,6 +26,20 @@ struct Vertex
 	//float r, g, b, a;
 	float rhw;
 
+	Vertex &operator = (const Vertex &rhs)
+	{
+		if (this == &rhs)
+		{
+			return *this;
+		}
+
+		pos = rhs.pos;
+		w = rhs.w;
+		tu = rhs.tu;
+		rhw = rhs.rhw;
+
+		return *this;
+	}
 
 	Vertex operator + (const Vertex &rhs) const
 	{
@@ -194,9 +208,10 @@ public:
     Poly polyList[OBJECT_MAX_POLYS];
     
     int nVerticesCnt;   // 顶点数
+	
 
-    Point3 vertexListLocal[OBJECT_MAX_VERTICES];    // 顶点的局部坐标数组
-    Point3 vertexListTrans[OBJECT_MAX_VERTICES];    // 顶点变换后的坐标数组
+    Vertex vertexListLocal[OBJECT_MAX_VERTICES];    // 顶点的局部坐标数组
+    Vertex vertexListTrans[OBJECT_MAX_VERTICES];    // 顶点变换后的坐标数组
 };
 
 

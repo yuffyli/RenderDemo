@@ -23,12 +23,12 @@ class Texture;
 class Render
 {
 public:
-	void init();
+	void init(int32_t w, int32_t h, unsigned char *fb);
 	void destroy();
 
 	void initRenderState();
 
-	void initBuffer();
+	void initBuffer(int32_t w, int32_t h, void *fb);
 
 	//void initTexture();
 	//void setupTexture(void *pBits, int32_t tW, int32_t tH);

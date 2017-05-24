@@ -21,6 +21,7 @@ class RotationMatrix;
 class Matrix4x3
 {
 public:
+	Matrix4x3();
     // 置为单位矩阵
     void identity();
     

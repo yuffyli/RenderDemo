@@ -1,7 +1,7 @@
-﻿Build started 2017/5/19 20:08:13.
+﻿Build started 2017/5/24 14:34:39.
      1>Project "D:\Git\RenderDemo\Project\Win32\RenderDemo.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
-         Touching "Debug\RenderDemo.unsuccessfulbuild".
+         Creating "Debug\RenderDemo.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ID:\Git\RenderDemo\Project\Win32\..\..\Source\Maths /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\Source\main.cpp /wd4430 
          main.cpp
@@ -17,6 +17,12 @@
      1>d:\git\renderdemo\source\maths\matrix4x3.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
      1>d:\git\renderdemo\source\render.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
      1>d:\git\renderdemo\source\macro.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+     1>d:\git\renderdemo\source\main.cpp(74): warning C4101: 'sy' : unreferenced local variable
+     1>d:\git\renderdemo\source\main.cpp(74): warning C4101: 'sx' : unreferenced local variable
+     1>d:\git\renderdemo\source\main.cpp(74): warning C4101: 'wy' : unreferenced local variable
+     1>d:\git\renderdemo\source\main.cpp(74): warning C4101: 'wx' : unreferenced local variable
+     1>d:\git\renderdemo\source\main.cpp(112): warning C4244: 'argument' : conversion from 'int32_t' to 'float', possible loss of data
+     1>d:\git\renderdemo\source\main.cpp(112): warning C4244: 'argument' : conversion from 'int32_t' to 'float', possible loss of data
        ManifestResourceCompile:
          All outputs are up-to-date.
        Link:
@@ -47,4 +53,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.58
+Time Elapsed 00:00:00.60

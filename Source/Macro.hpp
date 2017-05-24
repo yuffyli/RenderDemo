@@ -30,7 +30,7 @@ typedef unsigned int		uint32_t;
 // 窗口相关定义
 #define MY_WINDOW_CLASS_NAME "RenderDemoWin"
 #define MY_WINDOW_CLASS_TITLE	"My RenderDemo"
-#define SCREEN_WIDTH 600
+#define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 
 // 相机类型

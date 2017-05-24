@@ -45,28 +45,78 @@
 //////////////////////////////////////////////////////////////////////////
 HWND mainWindowHandle = NULL; // 用于保存窗口句柄的全局变量
 HINSTANCE mainInstance = NULL;		// 用于保存实例的全局变量
+HDC mainWindowDC = NULL;
+HBITMAP mainBitmap = NULL;		// DIB
+HBITMAP oldBitmap = NULL;		// 老的 BITMAP
 
 Object mainObj;
 Camera mainCam;
 Render mainRender;
 
+int32_t nWindowWidth;
+int32_t nWindowHeight;
+unsigned char *pFrameBuffer = NULL;		// frame buffer
+
 //////////////////////////////////////////////////////////////////////////
-void GameInit()
+void ScreenInit(int32_t w, int32_t h)
+{
+	nWindowWidth = w;
+	nWindowHeight = h;
+	HDC hDC = GetDC(mainWindowHandle);
+	// 创建一个与指定设备兼容的内存设备上下文环境(device context)
+	mainWindowDC = CreateCompatibleDC(hDC); 
+	// 释放设备上下文环境（DC）供其他应用程序使用
+	ReleaseDC(mainWindowHandle, hDC); 
+
+	BITMAPINFO bi = { { sizeof(BITMAPINFOHEADER), w, -h, 1, 32, BI_RGB, 
+		w * h * 4, 0, 0, 0, 0 }  };
+	RECT rect = { 0, 0, w, h };
+	int wx, wy, sx, sy;
+	LPVOID ptr;
+
+	mainBitmap = CreateDIBSection(mainWindowDC, &bi, DIB_RGB_COLORS, &ptr, 0, 0);
+	oldBitmap = (HBITMAP)SelectObject(mainWindowDC, mainBitmap);
+
+	//AdjustWindowRect(&rect, GetWindowLong(mainWindowHandle, GWL_STYLE), 0);
+	//wx = rect.right - rect.left;
+	//wy = rect.bottom - rect.top;
+	//sx = (GetSystemMetrics(SM_CXSCREEN) - wx) / 2;
+	//sy = (GetSystemMetrics(SM_CYSCREEN) - wy) / 2;
+	//if (sy < 0) sy = 0;
+	//SetWindowPos(mainWindowHandle, NULL, sx, sy, wx, wy, (SWP_NOCOPYBITS | SWP_NOZORDER | SWP_SHOWWINDOW));
+	//SetForegroundWindow(mainWindowHandle);
+
+	//ShowWindow(mainWindowHandle, SW_NORMAL);
+
+
+	pFrameBuffer = (unsigned char*)ptr;
+	memset(pFrameBuffer, 0, 4*w*h);
+}
+
+
+void ScreenUpdate()
+{
+	HDC hDC = GetDC(mainWindowHandle);
+	BitBlt(hDC, 0, 0, nWindowWidth, nWindowHeight, mainWindowDC, 0, 0, SRCCOPY);
+	ReleaseDC(mainWindowHandle, hDC);
+}
+
+void GameInit(int32_t w, int32_t h)
 {
 	// 设置相机
-	Point3 posCam(5, 0, 6);
+	Point3 posCam(3.5f, .0f, .0f);
 	Vector3 vecDir(0, 0, 0);
-	Point3 posTarget(0, 0, 5);
-	Vector3 vecUp(0, 0, 1);
+	Point3 posTarget(.0f, .0f, .0f);
+	Vector3 vecUp(.0f, .0f, 1.0f);
 	float fFov = 90.0f;
-	mainCam.init(CAMERA_TYPE_UVN, posCam, vecDir, posTarget, vecUp, fFov, 5.0f, 50.0f, SCREEN_WIDTH, SCREEN_HEIGHT);
+	mainCam.init(CAMERA_TYPE_UVN, posCam, vecDir, posTarget, vecUp, fFov, 1.0f, 500.0f, w, h);
 	mainCam.updateMatrix();
 
 	// 生成物体
 	mainObj.init();
 
 	// 初始化渲染器
-	mainRender.init();
+	mainRender.init(w, h, pFrameBuffer);
 }
 
 void GameMain()
@@ -101,13 +151,13 @@ void GameMain()
 	mainObj.removeBackfaces(mainCam);
 
 	// 投影变换
-	mainObj.cameraTransform(mainCam);
+	mainObj.projectTransform(mainCam);
 
 	// 屏幕变换
 	mainObj.screenTranform(mainCam);
 
 	// 执行渲染
-
+	mainRender.drawObject(&mainObj);
 
 }
 
@@ -193,6 +243,9 @@ int WINAPI WinMain( __in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, 
 	mainWindowHandle = hwnd;
 	mainInstance = hInstance;
 
+	ScreenInit(SCREEN_WIDTH, SCREEN_HEIGHT);
+	GameInit(SCREEN_WIDTH, SCREEN_HEIGHT);
+
 	while (GetMessage(&msg, NULL, 0, 0))
 	{
 		if (msg.message == WM_QUIT)
@@ -204,6 +257,8 @@ int WINAPI WinMain( __in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, 
 		DispatchMessage(&msg);
 
 		GameMain();
+		ScreenUpdate();
+		Sleep(1);
 	}
 
 	GameShutdown();
