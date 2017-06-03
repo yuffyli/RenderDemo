@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <math.h>
+#include "MathUtil.hpp"
 
 class Vector3
 {
@@ -223,6 +224,11 @@ inline float distanceSquared(const Vector3 &lhs, const Vector3 &rhs)
     float dy = lhs.y - rhs.y;
     float dz = lhs.z - rhs.z;
     return (dx*dx + dy*dy + dz*dz);
+}
+
+inline Vector3 vectorInterp(const Vector3 &start, const Vector3 &end, float t)
+{
+	return Vector3(interpolate(start.x, end.x, t), interpolate(start.y, end.y, t), interpolate(start.z, end.z, t));
 }
 
 

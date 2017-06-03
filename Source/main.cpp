@@ -7,27 +7,6 @@
 //
 //#include "StdAfx.h"
 
-//#include <GLUT/GLUT.h> // GLUT窗口库
-//#include <OpenGL/gl.h>
-//#include <OpenGL/glu.h>
-//#include <GLUT/glut.h>
-
-// 自定义一个绘制函数
-//void display()
-//{
-//    // 清空
-//    glClear(GL_COLOR_BUFFER_BIT);
-//    // 开始绘制一个多边形
-//    glBegin(GL_POLYGON);
-//    // 多边形的顶点（三角形）
-//    glVertex2f(-0.5, -0.5);
-//    glVertex2f(0, 0.5);
-//    glVertex2f(0.5, -0.5);
-//    //绘制结束
-//    glEnd();
-//    glFlush();
-//}
-
 #define WIN32_LEAN_AND_MEAN 
 
 #include <Windows.h>
@@ -37,6 +16,8 @@
 #include "Macro.hpp"
 #include "Object.hpp"
 #include "Render.hpp"
+#include "Texture.hpp"
+
 
 #define KEY_DOWN(vk_code) ((GetAsyncKeyState(vk_code) & 0x8000) ? 1 : 0)
 #define KEY_UP(vk_code) ((GetAsyncKeyState(vk_code) & 0x8000) ? 0 : 1)
@@ -52,10 +33,16 @@ HBITMAP oldBitmap = NULL;		// 老的 BITMAP
 Object mainObj;
 Camera mainCam;
 Render mainRender;
+Texture mainTexture;
 
 int32_t nWindowWidth;
 int32_t nWindowHeight;
 unsigned char *pFrameBuffer = NULL;		// frame buffer
+
+float fScale = 0.8999f;
+float fTheta = 655.0f;
+
+
 
 //////////////////////////////////////////////////////////////////////////
 void ScreenInit(int32_t w, int32_t h)
@@ -77,17 +64,6 @@ void ScreenInit(int32_t w, int32_t h)
 	mainBitmap = CreateDIBSection(mainWindowDC, &bi, DIB_RGB_COLORS, &ptr, 0, 0);
 	oldBitmap = (HBITMAP)SelectObject(mainWindowDC, mainBitmap);
 
-	//AdjustWindowRect(&rect, GetWindowLong(mainWindowHandle, GWL_STYLE), 0);
-	//wx = rect.right - rect.left;
-	//wy = rect.bottom - rect.top;
-	//sx = (GetSystemMetrics(SM_CXSCREEN) - wx) / 2;
-	//sy = (GetSystemMetrics(SM_CYSCREEN) - wy) / 2;
-	//if (sy < 0) sy = 0;
-	//SetWindowPos(mainWindowHandle, NULL, sx, sy, wx, wy, (SWP_NOCOPYBITS | SWP_NOZORDER | SWP_SHOWWINDOW));
-	//SetForegroundWindow(mainWindowHandle);
-
-	//ShowWindow(mainWindowHandle, SW_NORMAL);
-
 
 	pFrameBuffer = (unsigned char*)ptr;
 	memset(pFrameBuffer, 0, 4*w*h);
@@ -104,19 +80,21 @@ void ScreenUpdate()
 void GameInit(int32_t w, int32_t h)
 {
 	// 设置相机
-	Point3 posCam(3.5f, .0f, .0f);
+	Point3 posCam(3.0f, .0f, -5.0f);	
 	Vector3 vecDir(0, 0, 0);
 	Point3 posTarget(.0f, .0f, .0f);
-	Vector3 vecUp(.0f, .0f, 1.0f);
+	Vector3 vecUp(.0f, 1.0f, .0f);
 	float fFov = 90.0f;
 	mainCam.init(CAMERA_TYPE_UVN, posCam, vecDir, posTarget, vecUp, fFov, 1.0f, 500.0f, w, h);
 	mainCam.updateMatrix();
 
+	mainTexture.initByPng(RES_PNG_FILE);
+
 	// 生成物体
-	mainObj.init();
+	mainObj.init(RES_OBJECT_FILE, &mainTexture);
 
 	// 初始化渲染器
-	mainRender.init(w, h, pFrameBuffer);
+	mainRender.init(w, h, RENDER_STATE, pFrameBuffer);
 }
 
 void GameMain()
@@ -124,14 +102,41 @@ void GameMain()
 	// 更新相机
 	if (KEY_DOWN(VK_DOWN))
 	{
-		mainCam.m_posCamera.z -= 1.0f;
+		mainCam.m_posCamera.z -= 0.1f;
 	}
 	if (KEY_DOWN(VK_UP))
 	{
-		mainCam.m_posCamera.z += 1.0f;
+		mainCam.m_posCamera.z += 0.1f;
 	}
 	mainCam.updateMatrix();
 
+	// 改变物体
+
+	// 旋转物体
+	if (KEY_DOWN(VK_LEFT))
+	{
+		fTheta -= 5.0f;
+	}
+	if (KEY_DOWN(VK_RIGHT))
+	{
+		fTheta += 5.0f;
+	}
+
+	// 缩放物体
+	if (KEY_DOWN(VK_SUBTRACT))
+	{
+		fScale -= 0.1f;
+	}
+
+	if (KEY_DOWN(VK_ADD))
+	{
+		fScale += 0.1f;
+	}
+
+	mainObj.setupScale(fScale);
+	Vector3 rotAxis(1.0f, 1.0f, 1.0f);
+	rotAxis.normalize();
+	mainObj.setupRotate(rotAxis, degreeToRadian(fTheta));
 
 	/************************************************************************/
 	/* 各种变换                                                                     */
@@ -139,16 +144,14 @@ void GameMain()
 	// 世界变换
 	mainObj.worldTransform();
 
-	// 旋转物体
+	// 背面消除
+	mainObj.removeBackfaces(mainCam);
 
 	// 相机变换
 	mainObj.cameraTransform(mainCam);
 
 	// 物体剔除
 	mainObj.cullObject(mainCam, CULL_OBJECT_XYZ_PLANE);
-
-	// 背面消除
-	mainObj.removeBackfaces(mainCam);
 
 	// 投影变换
 	mainObj.projectTransform(mainCam);
@@ -159,6 +162,7 @@ void GameMain()
 	// 执行渲染
 	mainRender.drawObject(&mainObj);
 
+	//mainRender.drawTexture(&mainTexture);
 }
 
 void GameShutdown()
@@ -193,6 +197,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 
 			return 0;
 		}
+		break;
+	case WM_KEYDOWN:
+		break;
+	case WM_KEYUP:
 		break;
 	default:
 		break;
@@ -258,27 +266,10 @@ int WINAPI WinMain( __in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, 
 
 		GameMain();
 		ScreenUpdate();
-		Sleep(1);
+		//Sleep(1);
 	}
 
 	GameShutdown();
 
 	return (msg.wParam);
 }
-
-
-
-// 程序入口
-//int main(int argc, char * argv[])
-//{
-//
-//    ////窗口初始化
-//    //glutInit(&argc, argv);
-//    ////创建一个名为Demo的窗口
-//    //glutCreateWindow("Demo");
-//    ////绘图函数
-//    //glutDisplayFunc(display);
-//    //glutMainLoop();
-//
-//	return 0;
-//}

@@ -83,5 +83,22 @@ void swap(T &a, T &b)
 	b = t;
 }
 
+// 读取一行
+inline char *Get_Line_PLG(char *buffer, int maxlength, FILE *fp)
+{
+	int index = 0;
+	int length = 0;
+	while(1)
+	{
+		if (!fgets(buffer, maxlength, fp))
+			return(NULL);
+		for (length = strlen(buffer), index = 0; isspace(buffer[index]); index++);
+		if (index >= length || buffer[index]=='#') 
+			continue;
+
+		return(&buffer[index]);
+	} 
+}
+
 
 #endif /* MathUtil_hpp */

@@ -10,6 +10,8 @@
 #define Macro_hpp
 
 #include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 
 typedef signed char			char_t;
 typedef unsigned char		uchar_t;
@@ -26,6 +28,8 @@ typedef signed short		int16_t;
 typedef unsigned short		uint16_t;
 typedef signed int			int32_t;
 typedef unsigned int		uint32_t;
+typedef unsigned char    byte;
+
 
 // 窗口相关定义
 #define MY_WINDOW_CLASS_NAME "RenderDemoWin"
@@ -75,7 +79,7 @@ typedef unsigned int		uint32_t;
 #define TEXTURE_WIDTH 256
 #define TEXTURE_HEIGHT 256
 
-#define COLOR0	0xffffff
+#define COLOR0	0x11ffff
 #define COLOR1	0xccffff
 #define COLOR2	0x99ccff
 #define COLOR3	0xff9966
@@ -88,7 +92,10 @@ typedef unsigned int		uint32_t;
 #define RENDER_STATE_TEXTURE 0x0002
 #define RENDER_STATE_COLOR 0x0004
 
-#define RENDER_STATE RENDER_STATE_WIREFRAME
+#define RENDER_STATE RENDER_STATE_TEXTURE /*RENDER_STATE_WIREFRAME*/
+
+#define RES_OBJECT_FILE "D:\\Git\\RenderDemo\\Resources\\cube.plg"
+#define RES_PNG_FILE	"D:\\Git\\RenderDemo\\Resources\\images.png"
 
 
 #endif /* Macro_hpp */

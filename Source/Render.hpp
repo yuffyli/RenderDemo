@@ -23,19 +23,23 @@ class Texture;
 class Render
 {
 public:
-	void init(int32_t w, int32_t h, unsigned char *fb);
+	void init(int32_t w, int32_t h, int32_t state, unsigned char *fb);
 	void destroy();
 
-	void initRenderState();
+	void initRenderState(int32_t state);
 
 	void initBuffer(int32_t w, int32_t h, void *fb);
+
+	void resetBuffer();
 
 	//void initTexture();
 	//void setupTexture(void *pBits, int32_t tW, int32_t tH);
 
 	void initLineByY(Trapezoid *pTrapezoid, Line *pLine, int32_t y);
+	void drawTexture(Texture *pTexture);
 	void drawObject(Object *pObject);
 	void drawPoly(Poly *pPoly);
+	void drawTriangle(Vertex *pV0, Vertex *pV1, Vertex *pV2);
 	void drawTriangle(Texture *pTexture, Vertex *pV0, Vertex *pV1, Vertex *pV2);
 	void drawTrapezoid(Texture *pTexture, Trapezoid *pTrapezoid);
 	void drawHorizontalLine(Texture *pTexture, Line *pLine);

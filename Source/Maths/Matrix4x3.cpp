@@ -21,6 +21,14 @@ Matrix4x3::Matrix4x3()
 	identity();
 }
 
+void Matrix4x3::reset()
+{
+	m11 = m12 = m13 = .0f;
+	m21 = m22 = m23 = .0f;
+	m31 = m32 = m33 = .0f;
+	tx = .0f; ty = .0f; tz = .0f;
+}
+
 void Matrix4x3::identity()
 {
     m11 = 1.0f; m12 = .0f; m13 = .0f;
@@ -67,19 +75,20 @@ void Matrix4x3::setupUVN(const Vector3 &u, const Vector3 &v, const Vector3 &n)
     tx = .0f; ty = .0f; tz = .0f;
 }
 
-void Matrix4x3::setupProjection(float d)
+void Matrix4x3::setupProjection(float aspect, float fovY, float near, float far)
 {
-    m11 = d; m12 = .0f; m13 = .0f;
-    m21 = .0f; m22 = d; m23 = .0f;
-    m31 = .0f; m32 = .0f; m33 = 1.0f;
-    
-    tx = .0f; ty = .0f; tz = .0f;
+	reset();
+	float zoomY = 1.0f/tan(degreeToRadian(fovY*0.5f));
+	m11 = zoomY/aspect ;
+	m22 = zoomY;
+	m33 = far/(far-near);
+	tz = far*near/(near-far);
 }
 
 void Matrix4x3::setupScreen(float w, float h)
 {
     m11 = 0.5f*w; m12 = .0f; m13 = .0f;
-    m21 = .0f; m22 = -0.5f*w; m23 = .0f;
+    m21 = .0f; m22 = -0.5f*h; m23 = .0f;
     m31 = .0f; m32 = .0f; m33 = 1.0f;
     
     tx = 0.5f*w, ty = 0.5f*h, tz = .0f;

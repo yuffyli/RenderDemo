@@ -22,6 +22,9 @@ class Matrix4x3
 {
 public:
 	Matrix4x3();
+
+	void reset();
+
     // 置为单位矩阵
     void identity();
     
@@ -34,8 +37,8 @@ public:
     void setUVN(const Vector3 &u, const Vector3 &v, const Vector3 &n);
     void setupUVN(const Vector3 &u, const Vector3 &v, const Vector3 &n);
     
-    //  根据视距d构造投影矩阵
-    void setupProjection(float d);
+    //  根据宽高比，视场角，远近裁剪面构造投影矩阵
+    void setupProjection(float aspect, float fovY, float near, float far);
     
     // 根据屏幕宽高构造屏幕变换矩阵
     void setupScreen(float w, float h);

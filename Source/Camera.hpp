@@ -22,6 +22,11 @@ public:
 	void init(int ty, const Point3 &pos, const Vector3 &dir, const Point3 &target, const Vector3 &v, float fov, float nearZ, float farZ, float width, float height);
     
     void updateMatrix();
+
+	void setUpPosistion(const Point3 &p) 
+	{
+		m_posCamera = p;
+	}
     
 public:
 	int m_camTy; // 相机类型

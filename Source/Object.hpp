@@ -9,8 +9,6 @@
 #ifndef Object_hpp
 #define Object_hpp
 
-#include <stdio.h>
-
 #include "Macro.hpp"
 #include "Vector3.hpp"
 #include "Camera.hpp"
@@ -20,10 +18,10 @@ class Texture;
 // 顶点
 struct Vertex
 {
-	Point3 pos;
+	Point3 posLocal;
+	Point3 posTrans;
 	float w;
 	float tu, tv;
-	//float r, g, b, a;
 	float rhw;
 
 	Vertex &operator = (const Vertex &rhs)
@@ -33,9 +31,11 @@ struct Vertex
 			return *this;
 		}
 
-		pos = rhs.pos;
+		posLocal = rhs.posLocal;
+		posTrans = rhs.posTrans;
 		w = rhs.w;
 		tu = rhs.tu;
+		tv = rhs.tv;
 		rhw = rhs.rhw;
 
 		return *this;
@@ -44,13 +44,11 @@ struct Vertex
 	Vertex operator + (const Vertex &rhs) const
 	{
 		Vertex res;
-		res.pos = pos + rhs.pos;
+
+		//res.posLocal = posLocal + rhs.posLocal;
+		res.posTrans = posTrans + rhs.posTrans;
 		res.w = w + rhs.w;
 		res.tu = tu + rhs.tu;
-		//res.r = r + rhs.r;
-		//res.g = g + rhs.g;
-		//res.b = b + rhs.b;
-		//res.a = a + rhs.a;
 		res.rhw = rhw + rhs.rhw;
 
 		return res;
@@ -58,14 +56,11 @@ struct Vertex
 
 	Vertex &operator += (const Vertex &rhs)
 	{
-		pos += rhs.pos;
+		//posLocal += rhs.posLocal;
+		posTrans += rhs.posTrans;
 		w += rhs.w;
 		tu += rhs.tu;
 		tv += rhs.tv;
-		//r += rhs.r;
-		//g += rhs.g;
-		//b += rhs.b;
-		//a += rhs.a;
 		rhw += rhs.rhw;
 
 		return *this;
@@ -74,13 +69,12 @@ struct Vertex
 	Vertex operator - (const Vertex &rhs) const
 	{
 		Vertex res;
-		res.pos = pos - rhs.pos;
+
+		//res.posLocal = posLocal - rhs.posLocal;
+		res.posTrans = posTrans - rhs.posTrans;
 		res.w = w - rhs.w;
 		res.tu = tu - rhs.tu;
-		//res.r = r - rhs.r;
-		//res.g = g - rhs.g;
-		//res.b = b - rhs.b;
-		//res.a = a - rhs.a;
+		res.tv = tv - rhs.tv;
 		res.rhw = rhw - rhs.rhw;
 
 		return res;
@@ -88,14 +82,11 @@ struct Vertex
 
 	Vertex &operator -= (const Vertex &rhs)
 	{
-		pos -= rhs.pos;
+		//posLocal -= rhs.posLocal;
+		posTrans -= rhs.posTrans;
 		w -= rhs.w;
 		tu -= rhs.tu;
 		tv -= rhs.tv;
-		//r -= rhs.r;
-		//g -= rhs.g;
-		//b -= rhs.b;
-		//a -= rhs.a;
 		rhw -= rhs.rhw;
 
 		return *this;
@@ -104,35 +95,43 @@ struct Vertex
 	Vertex operator * (float k) const
 	{
 		Vertex res;
-		res.pos *= k;
-		res.w *= k;
-		res.tu *= k;
-		res.tv *= k;
-		//res.r *= k;
-		//res.g *= k;
-		//res.b *= k;
-		//res.a *= k;
-		res.rhw *= k;
+
+		//res.posLocal = k * posLocal;
+		res.posTrans = k * posTrans;
+		res.w = k * w;
+		res.tu = k * tu;
+		res.tv =  k * tv;
+		res.rhw = k * rhw;
 
 		return res;
 	}
 
 	Vertex &operator *= (float k)
 	{
-		pos *= k;
+		//posLocal *= k;
+		posTrans *= k;
 		w *= k;
 		tu *= k;
 		tv *= k;
-		//r *= k;
-		//g *= k;
-		//b *= k;
-		//a *= k;
 		rhw *= k;
 
 		return *this;
 	}
 
 };
+
+inline Vertex vertexInterp(const Vertex &start, const Vertex &end, float t)
+{
+	Vertex vRet;
+
+	vRet.posTrans = vectorInterp(start.posTrans, end.posTrans, t);
+	vRet.w = interpolate(start.w, end.w, t);
+	vRet.tu = interpolate(start.tu, end.tu, t);
+	vRet.tv = interpolate(start.tv, end.tv, t);
+	vRet.rhw = interpolate(start.rhw, end.rhw, t);
+
+	return vRet;
+}
 
 // 边
 struct Edge
@@ -166,15 +165,20 @@ struct Poly
 {
 	Vertex *vertexList;    // 顶点列表
 	Texture *pTexture;	// 纹理
-	int vertexIndex[4];    // 顶点索引
+	int32_t vertexIndex[3];    // 顶点索引
 	int32_t nState;          // 多边形状态
-	int32_t color;            // 多边形颜色
+	//int32_t color;            // 多边形颜色
 };
 
 class Object
 {
 public:
-	void init();
+	bool init(char *fileName, Texture *pTexture);
+
+	void setupScale(float fScale);
+	void setupScale(const Vector3 &scale);
+	void setupRotate(const Vector3 &axis, float theta);
+
     void reset();
 
 	// 物体剔除
@@ -196,34 +200,22 @@ public:
 	void screenTranform(const Camera &cam);
     
 public:
-    int nState;     // 物体状态
+    int32_t nState;						// 物体状态
     
-    Point3 posWorld;   // 世界坐标
-    Vector3 vecDirection;   // 局部坐标中的朝向
+    Point3 posWorld;					// 世界坐标
+    Vector3 vecDirection;			// 局部坐标中的朝向
     Vector3 axisX, axisY, axisZ;    // 局部坐标轴
-    float fMaxRadius;   // 包围球半径
+	Vector3 vecScale;
+	Vector3 rotAxis;
+	float fTheta;
+    float fMaxRadius;					// 包围球半径
     
-    int nPolyCnt;   // 多边形数
-
-    Poly polyList[OBJECT_MAX_POLYS];
+    int32_t nPolyCnt;					// 多边形数
+    Poly polyList[OBJECT_MAX_POLYS];	// 多边形数组
     
-    int nVerticesCnt;   // 顶点数
-	
-
-    Vertex vertexListLocal[OBJECT_MAX_VERTICES];    // 顶点的局部坐标数组
-    Vertex vertexListTrans[OBJECT_MAX_VERTICES];    // 顶点变换后的坐标数组
+    int32_t nVerticesCnt;				// 顶点数
+    Vertex vertexList[OBJECT_MAX_VERTICES];    // 顶点数组
 };
-
-
-//struct RenderList
-//{
-//    int nPolyCnt;   // 多边形数
-//    
-//    Poly *polyHanleList[RENDERLIST_MAX_POLYS];
-//    Poly polyDataList[RENDERLIST_MAX_POLYS];
-//
-//};
-
 
 
 #endif /* Object_hpp */

@@ -19,6 +19,12 @@
     <Filter Include="Header Files\Maths">
       <UniqueIdentifier>{d2a790d3-299f-483c-ad0c-9f1834f5f5b3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="libpng">
+      <UniqueIdentifier>{6bd4d982-8797-4186-b2e6-36af5359613b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libzlib">
+      <UniqueIdentifier>{d45c19e4-951f-4fcc-9641-61d31b75d0a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -65,6 +71,18 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\Texture.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\libpng\include\png.h">
+      <Filter>libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\libpng\include\pngconf.h">
+      <Filter>libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\libzlib\include\zconf.h">
+      <Filter>libzlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\libzlib\include\zlib.h">
+      <Filter>libzlib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

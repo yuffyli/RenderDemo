@@ -7,71 +7,93 @@
 //
 
 #include "Object.hpp"
+#include <stdio.h>
 
-void Object::init()
+bool Object::init(char *fileName, Texture *pTexture)
 {
-	// 物体的世界坐标
-	posWorld = Point3(0, 0, 5);
 
-	nVerticesCnt = 8;
-	static Vertex vertexList[8] = {
-		{ Point3(1.0f, -1.0f,  1.0f), 1, 0, 0, 1 },
-		{ Point3( -1.0f, -1.0f,  1.0f), 1, 0, 1, 1 },
-		{ Point3(-1.0f,  1.0f,  1.0f), 1, 1, 1, 1 },
-		{ Point3( 1.0f,  1.0f,  1.0f), 1, 1, 0 , 1 },
-		{ Point3(1.0f, -1.0f, -1.0f), 1, 0, 0 ,1 },
-		{ Point3(-1.0f, -1.0f, -1.0f), 1, 0, 1 , 1 },
-		{ Point3( -1.0f,  1.0f, -1.0f), 1,  1, 1 , 1 },
-		{ Point3(1.0f,  1.0f, -1.0f), 1,  1, 0 , 1 },
-	};
-	for (int32_t i = 0; i < nVerticesCnt; ++i)
+	char buffer[256];
+	char *token_string;
+
+	FILE *fp = fopen(fileName, "r");
+	if (NULL == fp)
 	{
-		vertexListLocal[i] = vertexList[i];
+		return false;
 	}
 
-	nPolyCnt = 6;
-	polyList[0].vertexList = vertexListTrans;
-	polyList[0].vertexIndex[0] = 0;
-	polyList[0].vertexIndex[1] = 1;
-	polyList[0].vertexIndex[2] = 2;
-	polyList[0].vertexIndex[3] = 3;
-	polyList[0].nState = POLY_STATE_ACTIVE;
+	if (!(token_string = Get_Line_PLG(buffer, 255, fp)))
+	{
+		return false;
+	} 
 
-	polyList[1].vertexList = vertexListTrans;
-	polyList[1].vertexIndex[0] = 4;
-	polyList[1].vertexIndex[1] = 6;
-	polyList[1].vertexIndex[2] = 6;
-	polyList[1].vertexIndex[3] = 7;
-	polyList[1].nState = POLY_STATE_ACTIVE;
+	// 读取顶点和三角形数目
+	sscanf(token_string, "%d %d ", &nVerticesCnt, &nPolyCnt);
 
-	polyList[2].vertexList = vertexListTrans;
-	polyList[2].vertexIndex[0] = 0;
-	polyList[2].vertexIndex[1] = 4;
-	polyList[2].vertexIndex[2] = 5;
-	polyList[2].vertexIndex[3] = 1;
-	polyList[2].nState = POLY_STATE_ACTIVE;
+	// 读取顶点信息
+	for (int32_t i = 0; i < nVerticesCnt; ++i)
+	{
+		if (!(token_string = Get_Line_PLG(buffer, 255, fp)))
+		{
+			return false;
+		}
 
-	polyList[3].vertexList = vertexListTrans;
-	polyList[3].vertexIndex[0] = 1;
-	polyList[3].vertexIndex[1] = 5;
-	polyList[3].vertexIndex[2] = 6;
-	polyList[3].vertexIndex[3] = 2;
-	polyList[3].nState = POLY_STATE_ACTIVE;
+		sscanf(token_string, "%f %f %f %f %f", 
+			&vertexList[i].posLocal.x,
+			&vertexList[i].posLocal.y,
+			&vertexList[i].posLocal.z,
+			&vertexList[i].tu,
+			&vertexList[i].tv
+			);
+		vertexList[i].w = 1.0f;
+		vertexList[i].rhw = 1.0f;
+	}
 
-	polyList[4].vertexList = vertexListTrans;
-	polyList[4].vertexIndex[0] = 2;
-	polyList[4].vertexIndex[1] = 6;
-	polyList[4].vertexIndex[2] = 7;
-	polyList[4].vertexIndex[3] = 3;
-	polyList[4].nState = POLY_STATE_ACTIVE;
+	// 读取三角形信息
+	for (int32_t i = 0; i < nPolyCnt; ++i)
+	{
+		if (!(token_string = Get_Line_PLG(buffer, 255, fp)))
+		{
+			return false;
+		}
 
-	polyList[5].vertexList = vertexListTrans;
-	polyList[5].vertexIndex[0] = 3;
-	polyList[5].vertexIndex[1] = 7;
-	polyList[5].vertexIndex[2] = 4;
-	polyList[5].vertexIndex[3] = 0;
-	polyList[5].nState = POLY_STATE_ACTIVE;
+		sscanf(token_string, "%d %d %d", 
+			&polyList[i].vertexIndex[0],
+			&polyList[i].vertexIndex[1],
+			&polyList[i].vertexIndex[2]);
 
+		polyList[i].vertexList = vertexList;
+		polyList[i].pTexture = pTexture;
+		polyList[i].nState = POLY_STATE_ACTIVE;
+	}
+
+	fclose(fp);
+
+	return true;
+}
+
+void Object::setupScale(const Vector3 &scale)
+{
+	if (scale.x < .0f || scale.y < .0f || scale.z < .0f)
+	{
+		return;
+	}
+
+	vecScale = scale;
+}
+
+void Object::setupScale(float fScale)
+{
+	if (fScale > .0f)
+	{
+		vecScale = fScale * Vector3(1.0f, 1.0f, 1.0f);
+	}
+
+}
+
+void Object::setupRotate(const Vector3 &axis, float theta)
+{
+	rotAxis = axis;
+	fTheta = theta;
 }
 
 void Object::reset()
@@ -137,7 +159,6 @@ void Object::cullObject(const Camera &cam, int nCullFlag)
 void Object::removeBackfaces(const Camera &cam)
 {
     // 在执行世界坐标到相机坐标变换之前执行背面消除
-    
     // 把物体背面的多边形标记为POLY_STATE_BACKFACE
     for (int i = 0; i < nPolyCnt; ++i)
     {
@@ -146,11 +167,11 @@ void Object::removeBackfaces(const Camera &cam)
 		int idx1 = poly.vertexIndex[1];
 		int idx2 = poly.vertexIndex[2];
 
-		Vector3 u = vertexListTrans[idx1].pos - vertexListTrans[idx0].pos;
-		Vector3 v = vertexListTrans[idx2].pos - vertexListTrans[idx0].pos;
+		Vector3 u = vertexList[idx1].posTrans - vertexList[idx0].posTrans;
+		Vector3 v = vertexList[idx2].posTrans - vertexList[idx0].posTrans;
 		Vector3 n = crossProduct(u, v);
 
-		Vector3 view = cam.m_posCamera - vertexListTrans[idx0].pos;
+		Vector3 view = cam.m_posCamera - vertexList[idx0].posTrans;
 
 		float fDotResult = n*view;
 		poly.nState = (fDotResult <= .0f) ? POLY_STATE_BACKFACE : POLY_STATE_ACTIVE;
@@ -159,35 +180,53 @@ void Object::removeBackfaces(const Camera &cam)
 
 void Object::worldTransform()
 {
-	Matrix4x3 mTrans;
-	mTrans.setupTranslation(-posWorld);
+	// 世界变换
+	Matrix4x3 mScale, mRotate, mTrans, mWorld;;
+
+	// 先做缩放
+	mScale.setupScale(vecScale);
+	// 再做旋转
+	mRotate.setupRotate(rotAxis, fTheta);
+	// 最后做平移
+	mTrans.setupTranslation(posWorld);
+
+	mWorld = mScale*mRotate*mTrans;
+
 	for (int32_t i = 0; i < nVerticesCnt; ++i)
 	{
-		vertexListTrans[i].pos = vertexListLocal[i].pos * mTrans;
+		vertexList[i].posTrans = vertexList[i].posLocal * mWorld;;
 	}
 }
 
 void Object::cameraTransform(const Camera &cam)
 {
+	// 相机变换
 	for (int32_t i = 0; i < nVerticesCnt; ++i)
 	{
-		vertexListTrans[i].pos *= cam.m_matrixCamera;
+		vertexList[i].posTrans *= cam.m_matrixCamera;
 	}
-	
 }
 
 void Object::projectTransform(const Camera &cam)
 {
+	// 透视变换，修改位置，w和rhw
 	for (int32_t i = 0; i < nVerticesCnt; ++i)
 	{
-		vertexListTrans[i].pos *= cam.m_matrixProjection;
+		vertexList[i].w = vertexList[i].posTrans.z;
+		vertexList[i].posTrans *= cam.m_matrixProjection;
+		float rhw = 1.0f/vertexList[i].w;
+		vertexList[i].posTrans *= rhw;
+		vertexList[i].rhw = rhw;
 	}
 }
 
 void Object::screenTranform(const Camera &cam)
 {
+	// 屏幕变换
 	for (int32_t i = 0; i < nVerticesCnt; ++i)
 	{
-		vertexListTrans[i].pos *= cam.m_matrixScreen;
+		vertexList[i].posTrans *= cam.m_matrixScreen;
 	}
 }
+
+

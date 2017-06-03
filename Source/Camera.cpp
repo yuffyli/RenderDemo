@@ -59,11 +59,7 @@ void Camera::init(int ty, const Point3 &pos, const Vector3 &dir, const Point3 &t
 
 void Camera::updateMatrix()
 {
-    // 根据相机位置创建平移矩阵（逆矩阵）
-    Matrix4x3 matrixMove;
-    matrixMove.setupTranslation(-m_posCamera);
-    
-    // 根据目标位置创建旋转矩阵（逆矩阵）
+    // 根据目标位置创建旋转矩阵（逆）
     Matrix4x3 matrixUVN;
     if(m_camTy == CAMERA_TYPE_ELUER)
     {
@@ -80,9 +76,15 @@ void Camera::updateMatrix()
         matrixUVN.setUVN(m_U, m_V, m_N);
     }
     
-    m_matrixCamera = matrixMove*matrixUVN;
+    m_matrixCamera = matrixUVN;
+
+	// 根据相机位置设置平移向量（逆）
+	Vector3 vTran(-m_posCamera*m_U, -m_posCamera*m_V, -m_posCamera*m_N);
+	m_matrixCamera.setTranslation(vTran);
     
-    m_matrixProjection.setupProjection(m_fViewDistance);
+	// 设置透视投影矩阵
+    m_matrixProjection.setupProjection(m_fAspectRatio, m_fFOV, m_fNearZ, m_fFarZ);
     
+	// 设置屏幕变换矩阵
     m_matrixScreen.setupScreen(m_fScreenWidth, m_fScreenHeight);
 }

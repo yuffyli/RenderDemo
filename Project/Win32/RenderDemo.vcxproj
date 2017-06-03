@@ -49,12 +49,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Source\Maths;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Source\Maths;$(ProjectDir)..\..\Source\libpng\include;$(ProjectDir)..\..\Source\libzlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/wd4430 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>libpng.lib;libzlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\Source\libpng\prebuilt;$(ProjectDir)..\..\Source\libzlib\prebuilt;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -78,6 +80,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\Camera.hpp" />
+    <ClInclude Include="..\..\Source\libpng\include\png.h" />
+    <ClInclude Include="..\..\Source\libpng\include\pngconf.h" />
+    <ClInclude Include="..\..\Source\libzlib\include\zconf.h" />
+    <ClInclude Include="..\..\Source\libzlib\include\zlib.h" />
     <ClInclude Include="..\..\Source\Macro.hpp" />
     <ClInclude Include="..\..\Source\Maths\EulerAngles.hpp" />
     <ClInclude Include="..\..\Source\Maths\MathUtil.hpp" />
