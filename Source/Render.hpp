@@ -23,14 +23,12 @@ class Texture;
 class Render
 {
 public:
-	void init(int32_t w, int32_t h, int32_t state, unsigned char *fb);
+	void init(int32_t w, int32_t h, int32_t renderState, int32_t depthState, unsigned char *fb);
 	void destroy();
-
-	void initRenderState(int32_t state);
 
 	void initBuffer(int32_t w, int32_t h, void *fb);
 
-	void resetBuffer();
+	void clearBuffer();
 
 	//void initTexture();
 	//void setupTexture(void *pBits, int32_t tW, int32_t tH);
@@ -46,11 +44,13 @@ public:
 
 	void drawLine(int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint32_t color);
 	void drawPixel(int32_t x, int32_t y, uint32_t color);
+
 	
 public:
 	int32_t nWinWidth;
 	int32_t nWinHeight;
 	int32_t nRenderState;
+	int32_t nDepthState;
 
 	uint32_t **pFrameBuffer;	// 像素缓存
 	float **pZBuffer;				// 深度缓存

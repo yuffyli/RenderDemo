@@ -76,8 +76,7 @@ typedef unsigned char    byte;
 #define RENDER_TRANSFORM_TRANS 2
 #define RENDER_TRANSFORM_LOCALTOTRANS 3
 
-#define TEXTURE_WIDTH 256
-#define TEXTURE_HEIGHT 256
+
 
 #define COLOR0	0x11ffff
 #define COLOR1	0xccffff
@@ -91,11 +90,34 @@ typedef unsigned char    byte;
 #define RENDER_STATE_WIREFRAME 0x0001
 #define RENDER_STATE_TEXTURE 0x0002
 #define RENDER_STATE_COLOR 0x0004
+#define RENDER_STATE	 RENDER_STATE_WIREFRAME /*RENDER_STATE_WIREFRAME*/
 
-#define RENDER_STATE RENDER_STATE_TEXTURE /*RENDER_STATE_WIREFRAME*/
+// 背面剔除
+#define CULLING_NONE 0x0001
+#define CULLING_BACK_FACE 0x0002
+#define CULLING_FRONT_FACE 0x0004
+#define CULLING_STATE CULLING_BACK_FACE
 
-#define RES_OBJECT_FILE "D:\\Git\\RenderDemo\\Resources\\cube.plg"
-#define RES_PNG_FILE	"D:\\Git\\RenderDemo\\Resources\\images.png"
+
+// 裁剪
+#define AREA_LEFT 1			// 0001
+#define AREA_RIGHT 2		// 0010
+#define AREA_BOTTOM 4	// 0100
+#define AREA_TOP 8			// 1000
+
+
+// 深度测试
+#define ENABLE_DEPTH_BUFFER 0x0001
+#define DISABLE_DEPTH_BUFFER 0x0002
+#define DEPTH_BUFFER_STATE ENABLE_DEPTH_BUFFER
+
+#define RES_OBJECT_SINGLE_TRI_FILE "Resources\\cube.plg"
+#define RES_OBJECT_MULTI_TRI_FILE "Resources\\cube2.plg"
+#define RES_OBJECT_FILE RES_OBJECT_MULTI_TRI_FILE
+
+
+#define RES_PNG_FILE	"Resources\\images.png"
 
 
 #endif /* Macro_hpp */
+

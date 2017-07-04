@@ -94,7 +94,7 @@ void GameInit(int32_t w, int32_t h)
 	mainObj.init(RES_OBJECT_FILE, &mainTexture);
 
 	// 初始化渲染器
-	mainRender.init(w, h, RENDER_STATE, pFrameBuffer);
+	mainRender.init(w, h, RENDER_STATE, DEPTH_BUFFER_STATE, pFrameBuffer);
 }
 
 void GameMain()
@@ -125,12 +125,12 @@ void GameMain()
 	// 缩放物体
 	if (KEY_DOWN(VK_SUBTRACT))
 	{
-		fScale -= 0.1f;
+		fScale -= 0.01f;
 	}
 
 	if (KEY_DOWN(VK_ADD))
 	{
-		fScale += 0.1f;
+		fScale += 0.01f;
 	}
 
 	mainObj.setupScale(fScale);
@@ -155,6 +155,12 @@ void GameMain()
 
 	// 投影变换
 	mainObj.projectTransform(mainCam);
+
+	// 裁剪
+	mainObj.clipping();
+
+	// 透视除法
+	mainObj.perspectiveDivision();
 
 	// 屏幕变换
 	mainObj.screenTranform(mainCam);

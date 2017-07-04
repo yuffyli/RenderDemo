@@ -13,9 +13,10 @@
 #include "Texture.hpp"
 #include <string.h>
 
-void Render::init(int32_t w, int32_t h, int state, unsigned char *fb)
+void Render::init(int32_t w, int32_t h, int32_t renderState, int32_t depthState, unsigned char *fb)
 {
-	initRenderState(state);
+	nRenderState = renderState;
+	nDepthState = depthState;
 	initBuffer(w, h,fb);
 }
 
@@ -34,11 +35,6 @@ void Render::destroy()
 	}
 	delete []pZBuffer;
 	pZBuffer = NULL;
-}
-
-void Render::initRenderState(int32_t state)
-{
-	nRenderState = state;
 }
 
 void Render::initBuffer(int32_t w, int32_t h, void *fb)
@@ -68,7 +64,7 @@ void Render::initBuffer(int32_t w, int32_t h, void *fb)
 	}
 }
 
-void Render::resetBuffer()
+void Render::clearBuffer()
 {
 	for (int32_t j = 0; j < nWinHeight; ++j) 
 	{
@@ -112,7 +108,7 @@ void Render::initLineByY(Trapezoid *pTrapezoid, Line *pLine, int32_t y)
 
 void Render::drawTexture(Texture *pTexture)
 {
-	resetBuffer();
+	clearBuffer();
 	for (int32_t j = 0; j < pTexture->nHeight; ++j)
 	{
 		for (int32_t i = 0; i < pTexture->nWidth; ++i)
@@ -124,7 +120,7 @@ void Render::drawTexture(Texture *pTexture)
 
 void Render::drawObject(Object *pObject)
 {
-	resetBuffer();
+	clearBuffer();
 	for (int32_t i = 0; i < pObject->nPolyCnt; ++i)
 	{
 		if (pObject->polyList[i].nState & POLY_STATE_ACTIVE)
@@ -141,6 +137,10 @@ void Render::drawPoly(Poly *pPoly)
 	Vertex *pV1 = &pVList[pPoly->vertexIndex[1]];
 	Vertex *pV2 = &pVList[pPoly->vertexIndex[2]];
 	//Vertex *pV3 = &pVList[pPoly->vertexIndex[3]];
+
+	// 裁剪
+	//if (checkCVV(pV0) != 0 || checkCVV(pV1) != 0 || checkCVV(pV2) != 0) 
+	//	return;
 
 	// 线框模式
 	if (nRenderState & RENDER_STATE_WIREFRAME)
@@ -277,13 +277,21 @@ void Render::drawHorizontalLine(Texture *pTexture, Line *pLine)
 		if (x >= 0 && x < nWinWidth)
 		{
 			// 判断z缓存
-			float rhw = pLine->v.rhw;
-			if (rhw >= pZBuffer[y][x])
+			bool bRender = true;
+			
+			if (nDepthState == ENABLE_DEPTH_BUFFER)
 			{
-				float w = 1.0f / rhw;
-				pZBuffer[y][x] = rhw;
-				float u = pLine->v.tu;
-				float v = pLine->v.tv;
+				float rhw = pLine->v.rhw;
+				bRender = (rhw >= pZBuffer[y][x]);
+				if (bRender)
+				{
+					float w = 1.0f / rhw;
+					pZBuffer[y][x] = rhw;
+				}
+			}
+
+			if (bRender)
+			{
 				// 颜色渲染
 				if (nRenderState & RENDER_STATE_COLOR) 
 				{
@@ -293,6 +301,8 @@ void Render::drawHorizontalLine(Texture *pTexture, Line *pLine)
 				// 纹理渲染
 				if (nRenderState & RENDER_STATE_TEXTURE) 
 				{
+					float u = pLine->v.tu;
+					float v = pLine->v.tv;
 					pFrameBuffer[y][x] = pTexture->getColorByUV(u, v);
 				}
 			}
@@ -395,3 +405,5 @@ void Render::drawPixel(int32_t x, int32_t y, uint32_t color)
 		pFrameBuffer[y][x] = color;
 	}
 }
+
+

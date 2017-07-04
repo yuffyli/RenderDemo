@@ -181,6 +181,9 @@ public:
 
     void reset();
 
+	// 计算包围球半径
+	void calcMaxRadius();
+
 	// 物体剔除
     void cullObject(const Camera &cam, int nCullFlag);
 
@@ -196,8 +199,17 @@ public:
 	// 投影变换
 	void projectTransform(const Camera &cam);
 
+	// 透视除法
+	void  perspectiveDivision();
+
 	// 屏幕变换
 	void screenTranform(const Camera &cam);
+
+	// 长方体空间裁剪
+	void clipping();
+
+	// 裁剪
+	int32_t checkCVV(Vertex *pV);
     
 public:
     int32_t nState;						// 物体状态
