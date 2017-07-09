@@ -13,6 +13,7 @@
 #include "Texture.hpp"
 #include <string.h>
 
+
 void Render::init(int32_t w, int32_t h, int32_t renderState, int32_t depthState, unsigned char *fb)
 {
 	nRenderState = renderState;
@@ -79,10 +80,10 @@ void Render::clearBuffer()
 //////////////////////////////////////////////////////////////////////////
 void Render::initLineByY(Trapezoid *pTrapezoid, Line *pLine, int32_t y)
 {
-	float s1 = pTrapezoid->eLeft.vEnd.posTrans.y - pTrapezoid->eLeft.vStart.posTrans.y;
-	float s2 = pTrapezoid->eRight.vEnd.posTrans.y - pTrapezoid->eRight.vStart.posTrans.y;
-	float t1 = (y-pTrapezoid->eLeft.vStart.posTrans.y)/s1;
-	float t2 = (y-pTrapezoid->eRight.vStart.posTrans.y)/s2;
+	float s1 = pTrapezoid->eLeft.vEnd.pos.y - pTrapezoid->eLeft.vStart.pos.y;
+	float s2 = pTrapezoid->eRight.vEnd.pos.y - pTrapezoid->eRight.vStart.pos.y;
+	float t1 = (y-pTrapezoid->eLeft.vStart.pos.y)/s1;
+	float t2 = (y-pTrapezoid->eRight.vStart.pos.y)/s2;
 
 	pTrapezoid->eLeft.vInfo = vertexInterp(pTrapezoid->eLeft.vStart, pTrapezoid->eLeft.vEnd, t1);
 	pTrapezoid->eRight.vInfo = vertexInterp(pTrapezoid->eRight.vStart, pTrapezoid->eRight.vEnd, t2);
@@ -91,9 +92,9 @@ void Render::initLineByY(Trapezoid *pTrapezoid, Line *pLine, int32_t y)
 
 	pLine->nY = y;
 	pLine->v = v1;
-	pLine->nXStart = rounding(v1.posTrans.x);
-	pLine->nLength = rounding(v2.posTrans.x) - pLine->nXStart;
-	float fLength = v2.posTrans.x - v1.posTrans.x;
+	pLine->nXStart = rounding(v1.pos.x);
+	pLine->nLength = rounding(v2.pos.x) - pLine->nXStart;
+	float fLength = v2.pos.x - v1.pos.x;
 	if (fLength <= 0.000001f)
 	{
 		pLine->nLength = 0;
@@ -121,7 +122,8 @@ void Render::drawTexture(Texture *pTexture)
 void Render::drawObject(Object *pObject)
 {
 	clearBuffer();
-	for (int32_t i = 0; i < pObject->nPolyCnt; ++i)
+	//for (int32_t i = 0; i < pObject->nLocalPolyCnt; ++i)
+	for (int32_t i = 0; i < pObject->nTransPolyCnt; ++i)
 	{
 		if (pObject->polyList[i].nState & POLY_STATE_ACTIVE)
 		{
@@ -150,7 +152,7 @@ void Render::drawPoly(Poly *pPoly)
 	}
 
 	// 纹理渲染
-	if (nRenderState & RENDER_STATE_TEXTURE)
+	if (nRenderState & (RENDER_STATE_TEXTURE|RENDER_STATE_COLOR))
 	{
 		drawTriangle(pPoly->pTexture, pV0, pV1, pV2);
 		//drawTriangle(pPoly->pTexture, pV2, pV3, pV0);
@@ -160,34 +162,34 @@ void Render::drawPoly(Poly *pPoly)
 void Render::drawTriangle(Vertex *pV0, Vertex *pV1, Vertex *pV2)
 {
 	// 线框模式
-	drawLine(rounding(pV0->posTrans.x), rounding(pV0->posTrans.y), rounding(pV1->posTrans.x), rounding(pV1->posTrans.y), COLOR2);
-	drawLine(rounding(pV0->posTrans.x), rounding(pV0->posTrans.y), rounding(pV2->posTrans.x), rounding(pV2->posTrans.y), COLOR2);
-	drawLine(rounding(pV1->posTrans.x), rounding(pV1->posTrans.y), rounding(pV2->posTrans.x), rounding(pV2->posTrans.y), COLOR2);
+	drawLine(rounding(pV0->pos.x), rounding(pV0->pos.y), rounding(pV1->pos.x), rounding(pV1->pos.y), COLOR2);
+	drawLine(rounding(pV0->pos.x), rounding(pV0->pos.y), rounding(pV2->pos.x), rounding(pV2->pos.y), COLOR2);
+	drawLine(rounding(pV1->pos.x), rounding(pV1->pos.y), rounding(pV2->pos.x), rounding(pV2->pos.y), COLOR2);
 }
 
 void Render::drawTriangle(Texture *pTexture, Vertex *pV0, Vertex *pV1, Vertex *pV2)
 {
 	// 纹理渲染
-	if ((pV0->posTrans.y == pV1->posTrans.y && pV1->posTrans.y == pV2->posTrans.y)
-		|| (pV0->posTrans.x == pV1->posTrans.x && pV1->posTrans.x == pV2->posTrans.x) )
+	if ((pV0->pos.y == pV1->pos.y && pV1->pos.y == pV2->pos.y)
+		|| (pV0->pos.x == pV1->pos.x && pV1->pos.x == pV2->pos.x) )
 	{
 		return;
 	}
 
 	Trapezoid trap0, trap1;
-	if (pV0->posTrans.y > pV1->posTrans.y)
+	if (pV0->pos.y > pV1->pos.y)
 		swap(pV0, pV1);
-	if (pV0->posTrans.y > pV2->posTrans.y)
+	if (pV0->pos.y > pV2->pos.y)
 		swap(pV0, pV2);
-	if (pV1->posTrans.y > pV2->posTrans.y)
+	if (pV1->pos.y > pV2->pos.y)
 		swap(pV1, pV2);
 
-	if (pV0->posTrans.y == pV1->posTrans.y)
+	if (pV0->pos.y == pV1->pos.y)
 	{
-		if (pV0->posTrans.x > pV1->posTrans.x)
+		if (pV0->pos.x > pV1->pos.x)
 			swap(pV0, pV1);
-		trap0.fTop = pV0->posTrans.y;
-		trap0.fBottom = pV2->posTrans.y;
+		trap0.fTop = pV0->pos.y;
+		trap0.fBottom = pV2->pos.y;
 		trap0.eLeft.vStart = *pV0;
 		trap0.eLeft.vEnd = *pV2;
 		trap0.eRight.vStart = *pV1;
@@ -197,13 +199,13 @@ void Render::drawTriangle(Texture *pTexture, Vertex *pV0, Vertex *pV1, Vertex *p
 		return;
 	}
 
-	if (pV1->posTrans.y == pV2->posTrans.y)
+	if (pV1->pos.y == pV2->pos.y)
 	{
-		if (pV1->posTrans.x > pV2->posTrans.x)
+		if (pV1->pos.x > pV2->pos.x)
 			swap(pV1, pV2);
 
-		trap0.fTop = pV0->posTrans.y;
-		trap0.fBottom = pV2->posTrans.y;
+		trap0.fTop = pV0->pos.y;
+		trap0.fBottom = pV2->pos.y;
 		trap0.eLeft.vStart = *pV0;
 		trap0.eLeft.vEnd = *pV1;
 		trap0.eRight.vStart = *pV0;
@@ -213,12 +215,12 @@ void Render::drawTriangle(Texture *pTexture, Vertex *pV0, Vertex *pV1, Vertex *p
 		return;
 	}
 
-	trap0.fTop = pV0->posTrans.y;
-	trap0.fBottom = pV1->posTrans.y;
-	trap1.fTop = pV1->posTrans.y;
-	trap1.fBottom = pV2->posTrans.y;
+	trap0.fTop = pV0->pos.y;
+	trap0.fBottom = pV1->pos.y;
+	trap1.fTop = pV1->pos.y;
+	trap1.fBottom = pV2->pos.y;
 
-	if (pV0->posTrans.x+(pV1->posTrans.x - pV0->posTrans.x)*(pV2->posTrans.y - pV0->posTrans.y)/(pV1->posTrans.y - pV0->posTrans.y) <= pV2->posTrans.x)
+	if (pV0->pos.x+(pV1->pos.x - pV0->pos.x)*(pV2->pos.y - pV0->pos.y)/(pV1->pos.y - pV0->pos.y) <= pV2->pos.x)
 	{
 		trap0.eLeft.vStart = *pV0;
 		trap0.eLeft.vEnd = *pV1;
@@ -295,7 +297,13 @@ void Render::drawHorizontalLine(Texture *pTexture, Line *pLine)
 				// 颜色渲染
 				if (nRenderState & RENDER_STATE_COLOR) 
 				{
-
+					float r = rounding(pLine->v.color.r);
+					float g = rounding(pLine->v.color.g);
+					float b = rounding(pLine->v.color.b);
+					int32_t R = middle(0, r, 255);
+					int32_t G = middle(0, g, 255);
+					int32_t B = middle(0, b, 255);
+					pFrameBuffer[y][x] = (R << 16) | (G << 8) | (B);
 				}
 
 				// 纹理渲染
@@ -400,7 +408,7 @@ void Render::drawLine(int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint32_t c
 
 void Render::drawPixel(int32_t x, int32_t y, uint32_t color)
 {
-	if (x < nWinWidth && y < nWinHeight)
+	if (x>=0 && x < nWinWidth && y>=0 && y < nWinHeight)
 	{
 		pFrameBuffer[y][x] = color;
 	}

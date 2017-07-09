@@ -262,32 +262,5 @@ uint32_t Texture::getColorByUV(float u, float v)
 {
 	int32_t x = middle(0, nWidth-1, rounding(u*fMaxU));
 	int32_t y = middle(0, nHeight-1, rounding(v*fMaxV));
-	return pTexture[y][x];
+	return pTexture[nHeight-1-y][x];
 }
-
-
-png_structp png_ptr=NULL;//libpng的结构体
-png_infop   info_ptr=NULL;//libpng的信息
-
-void readPng()
-{
-	//int iRetVal;
-	//png_ptr=png_create_read_struct(PNG_LIBPNG_VER_STRING,NULL,NULL,NULL);
-	//if(!png_ptr)
-	//{
-
-	//}
-	//info_ptr=png_create_info_struct(png_ptr);
-	//if(!info_ptr)
-	//{
-	//	png_destroy_read_struct(&png_ptr,NULL,NULL);
-	//	
-	//}
-	//iRetVal=setjmp(png_jmpbuf(png_ptr));//安装错误处理跳转点
-	////当libpng内部出现错误的时候，libpng会调用longjmp直接跳转到这里运行。
-	//if(iRetVal)//setjmp的返回值就是libpng跳转后提供的错误代码（貌似总是1，但是还是请大家看libpng的官方文档）
-	//{
-	//	    fprintf(stderr,"错误码：%d\n",iRetVal);
-	//}
-}
-

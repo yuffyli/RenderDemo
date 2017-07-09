@@ -1,22 +1,9 @@
-﻿Build started 2017/7/4 16:11:12.
+﻿Build started 2017/7/9 14:39:40.
      1>Project "D:\Git\RenderDemo\Project\Win32\RenderDemo.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
-         Creating "Debug\RenderDemo.unsuccessfulbuild" because "AlwaysCreate" was specified.
+         Touching "Debug\RenderDemo.unsuccessfulbuild".
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ID:\Git\RenderDemo\Project\Win32\..\..\Source\Maths /ID:\Git\RenderDemo\Project\Win32\..\..\Source\libpng\include /ID:\Git\RenderDemo\Project\Win32\..\..\Source\libzlib\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\Source\Camera.cpp ..\..\Source\Maths\EulerAngles.cpp ..\..\Source\Maths\MathUtil.cpp ..\..\Source\Maths\Matrix4x3.cpp ..\..\Source\Maths\Plane.cpp ..\..\Source\Maths\Quaternion.cpp ..\..\Source\Maths\RotationMatrix.cpp ..\..\Source\Maths\Vector3.cpp ..\..\Source\Object.cpp ..\..\Source\Render.cpp ..\..\Source\Texture.cpp ..\..\Source\main.cpp /wd4430 
-         Camera.cpp
-     1>d:\git\renderdemo\source\camera.cpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\camera.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\vector3.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\mathutil.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\macro.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\plane.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\vector3.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\matrix4x3.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\mathutil.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\macro.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-         Generating Code...
-         Compiling...
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ID:\Git\RenderDemo\Project\Win32\..\..\Source\Maths /ID:\Git\RenderDemo\Project\Win32\..\..\Source\libpng\include /ID:\Git\RenderDemo\Project\Win32\..\..\Source\libzlib\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\Source\main.cpp /wd4430 
          main.cpp
      1>d:\git\renderdemo\source\main.cpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
      1>d:\git\renderdemo\source\macro.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
@@ -34,109 +21,12 @@
      1>d:\git\renderdemo\source\macro.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
      1>d:\git\renderdemo\source\texture.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
      1>d:\git\renderdemo\source\macro.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\main.cpp(61): warning C4101: 'sy' : unreferenced local variable
-     1>d:\git\renderdemo\source\main.cpp(61): warning C4101: 'sx' : unreferenced local variable
-     1>d:\git\renderdemo\source\main.cpp(61): warning C4101: 'wy' : unreferenced local variable
-     1>d:\git\renderdemo\source\main.cpp(61): warning C4101: 'wx' : unreferenced local variable
-     1>d:\git\renderdemo\source\main.cpp(88): warning C4244: 'argument' : conversion from 'int32_t' to 'float', possible loss of data
-     1>d:\git\renderdemo\source\main.cpp(88): warning C4244: 'argument' : conversion from 'int32_t' to 'float', possible loss of data
-         Texture.cpp
-     1>d:\git\renderdemo\source\texture.cpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\texture.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\macro.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\mathutil.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\macro.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\texture.cpp(68): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
-         Render.cpp
-     1>d:\git\renderdemo\source\render.cpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\render.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\macro.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\object.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\macro.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\vector3.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\mathutil.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\macro.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\camera.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\vector3.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\plane.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\vector3.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\matrix4x3.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\macro.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\mathutil.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\texture.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\macro.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-         Object.cpp
-     1>d:\git\renderdemo\source\object.cpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\object.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\macro.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\vector3.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\mathutil.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\macro.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\camera.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\vector3.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\plane.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\vector3.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\matrix4x3.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\object.cpp(18): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
-     1>d:\git\renderdemo\source\object.cpp(30): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(325) : see declaration of 'sscanf'
-     1>d:\git\renderdemo\source\object.cpp(46): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(325) : see declaration of 'sscanf'
-     1>d:\git\renderdemo\source\object.cpp(62): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(325) : see declaration of 'sscanf'
-         Vector3.cpp
-     1>d:\git\renderdemo\source\maths\vector3.cpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\vector3.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\mathutil.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\macro.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-         RotationMatrix.cpp
-     1>d:\git\renderdemo\source\maths\rotationmatrix.cpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\rotationmatrix.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\eulerangles.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\quaternion.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\vector3.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\mathutil.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\macro.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\mathutil.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-         Quaternion.cpp
-     1>d:\git\renderdemo\source\maths\quaternion.cpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\quaternion.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\vector3.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\mathutil.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\macro.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\eulerangles.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\mathutil.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-         Plane.cpp
-     1>d:\git\renderdemo\source\maths\plane.cpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\plane.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\vector3.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\mathutil.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\macro.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-         Matrix4x3.cpp
-     1>d:\git\renderdemo\source\maths\matrix4x3.cpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\matrix4x3.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\mathutil.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\macro.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\vector3.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\mathutil.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\eulerangles.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\quaternion.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\rotationmatrix.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-         MathUtil.cpp
-     1>d:\git\renderdemo\source\maths\mathutil.cpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\mathutil.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\macro.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-         EulerAngles.cpp
-     1>d:\git\renderdemo\source\maths\eulerangles.cpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\eulerangles.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\quaternion.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\matrix4x3.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\rotationmatrix.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\maths\mathutil.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-     1>d:\git\renderdemo\source\macro.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-         Generating Code...
+     1>d:\git\renderdemo\source\main.cpp(62): warning C4101: 'sy' : unreferenced local variable
+     1>d:\git\renderdemo\source\main.cpp(62): warning C4101: 'sx' : unreferenced local variable
+     1>d:\git\renderdemo\source\main.cpp(62): warning C4101: 'wy' : unreferenced local variable
+     1>d:\git\renderdemo\source\main.cpp(62): warning C4101: 'wx' : unreferenced local variable
+     1>d:\git\renderdemo\source\main.cpp(89): warning C4244: 'argument' : conversion from 'int32_t' to 'float', possible loss of data
+     1>d:\git\renderdemo\source\main.cpp(89): warning C4244: 'argument' : conversion from 'int32_t' to 'float', possible loss of data
        ManifestResourceCompile:
          All outputs are up-to-date.
        Link:
@@ -167,4 +57,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.26
+Time Elapsed 00:00:00.59

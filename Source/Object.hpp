@@ -15,14 +15,85 @@
 
 class Texture;
 
+
+struct Color
+{
+	float r, g, b;
+
+	Color operator + (const Color &rhs) const
+	{
+		Color res;
+		res.r = r + rhs.r;
+		res.g = g + rhs.g;
+		res.b = b + rhs.b;
+
+		return res;
+	}
+
+	Color &operator += (const Color &rhs)
+	{
+		r += rhs.r;
+		g += rhs.g;
+		b += rhs.b;
+
+		return *this;
+	}
+
+	Color operator - (const Color &rhs) const
+	{
+		Color res;
+		res.r = r - rhs.r;
+		res.g = g - rhs.g;
+		res.b = b - rhs.b;
+
+		return res;
+	}
+
+	Color &operator -= (const Color &rhs)
+	{
+		r -= rhs.r;
+		g -= rhs.g;
+		b -= rhs.b;
+
+		return *this;
+	}
+
+	Color operator * (float k) const
+	{
+		Color res;
+		res.r = r * k;
+		res.g = g * k;
+		res.b = b * k;
+
+		return res;
+	}
+
+	Color &operator *= (float k)
+	{
+		r *= k;
+		g *= k;
+		b *= k;
+
+		return *this;
+	}
+};
+
 // 顶点
+struct LocalVertex
+{
+	Point3 pos;
+	float tu,tv;
+	Color color;
+};
+
 struct Vertex
 {
-	Point3 posLocal;
-	Point3 posTrans;
 	float w;
 	float tu, tv;
 	float rhw;
+
+	Point3 pos;
+	Color color;
 
 	Vertex &operator = (const Vertex &rhs)
 	{
@@ -31,11 +102,11 @@ struct Vertex
 			return *this;
 		}
 
-		posLocal = rhs.posLocal;
-		posTrans = rhs.posTrans;
+		pos = rhs.pos;
 		w = rhs.w;
 		tu = rhs.tu;
 		tv = rhs.tv;
+		color = rhs.color;
 		rhw = rhs.rhw;
 
 		return *this;
@@ -45,10 +116,10 @@ struct Vertex
 	{
 		Vertex res;
 
-		//res.posLocal = posLocal + rhs.posLocal;
-		res.posTrans = posTrans + rhs.posTrans;
+		res.pos = pos + rhs.pos;
 		res.w = w + rhs.w;
 		res.tu = tu + rhs.tu;
+		res.color = color + rhs.color;
 		res.rhw = rhw + rhs.rhw;
 
 		return res;
@@ -56,11 +127,11 @@ struct Vertex
 
 	Vertex &operator += (const Vertex &rhs)
 	{
-		//posLocal += rhs.posLocal;
-		posTrans += rhs.posTrans;
+		pos += rhs.pos;
 		w += rhs.w;
 		tu += rhs.tu;
 		tv += rhs.tv;
+		color += rhs.color;
 		rhw += rhs.rhw;
 
 		return *this;
@@ -70,11 +141,11 @@ struct Vertex
 	{
 		Vertex res;
 
-		//res.posLocal = posLocal - rhs.posLocal;
-		res.posTrans = posTrans - rhs.posTrans;
+		res.pos = pos - rhs.pos;
 		res.w = w - rhs.w;
 		res.tu = tu - rhs.tu;
 		res.tv = tv - rhs.tv;
+		res.color = color - rhs.color;
 		res.rhw = rhw - rhs.rhw;
 
 		return res;
@@ -82,11 +153,11 @@ struct Vertex
 
 	Vertex &operator -= (const Vertex &rhs)
 	{
-		//posLocal -= rhs.posLocal;
-		posTrans -= rhs.posTrans;
+		pos -= rhs.pos;
 		w -= rhs.w;
 		tu -= rhs.tu;
 		tv -= rhs.tv;
+		color -= rhs.color;
 		rhw -= rhs.rhw;
 
 		return *this;
@@ -96,11 +167,11 @@ struct Vertex
 	{
 		Vertex res;
 
-		//res.posLocal = k * posLocal;
-		res.posTrans = k * posTrans;
+		res.pos = k * pos;
 		res.w = k * w;
 		res.tu = k * tu;
 		res.tv =  k * tv;
+		res.color = color * k;
 		res.rhw = k * rhw;
 
 		return res;
@@ -108,11 +179,11 @@ struct Vertex
 
 	Vertex &operator *= (float k)
 	{
-		//posLocal *= k;
-		posTrans *= k;
+		pos *= k;
 		w *= k;
 		tu *= k;
 		tv *= k;
+		color *= k;
 		rhw *= k;
 
 		return *this;
@@ -124,10 +195,13 @@ inline Vertex vertexInterp(const Vertex &start, const Vertex &end, float t)
 {
 	Vertex vRet;
 
-	vRet.posTrans = vectorInterp(start.posTrans, end.posTrans, t);
+	vRet.pos = vectorInterp(start.pos, end.pos, t);
 	vRet.w = interpolate(start.w, end.w, t);
 	vRet.tu = interpolate(start.tu, end.tu, t);
 	vRet.tv = interpolate(start.tv, end.tv, t);
+	vRet.color.r = interpolate(start.color.r, end.color.r, t);
+	vRet.color.g = interpolate(start.color.g, end.color.g, t);
+	vRet.color.b = interpolate(start.color.b, end.color.b, t);
 	vRet.rhw = interpolate(start.rhw, end.rhw, t);
 
 	return vRet;
@@ -175,17 +249,22 @@ class Object
 public:
 	bool init(char *fileName, Texture *pTexture);
 
+	void setupWorldPos(const Point3 &pos);
+
 	void setupScale(float fScale);
 	void setupScale(const Vector3 &scale);
 	void setupRotate(const Vector3 &axis, float theta);
 
-    void reset();
+    void resetStates();
 
 	// 计算包围球半径
 	void calcMaxRadius();
 
 	// 物体剔除
     void cullObject(const Camera &cam, int nCullFlag);
+
+	// 多边形裁剪
+	void clipPolys(const Camera &cam, int32_t nClipFlags);
 
 	// 背面消除
     void removeBackfaces(const Camera &cam);
@@ -222,10 +301,13 @@ public:
 	float fTheta;
     float fMaxRadius;					// 包围球半径
     
-    int32_t nPolyCnt;					// 多边形数
+    int32_t nLocalPolyCnt;					// 多边形数
+	int32_t nTransPolyCnt;
     Poly polyList[OBJECT_MAX_POLYS];	// 多边形数组
     
-    int32_t nVerticesCnt;				// 顶点数
+    int32_t nLocalVerticesCnt;				// 顶点数
+	int32_t nTransVerticesCnt;
+	LocalVertex localVertexList[OBJECT_MAX_VERTICES];
     Vertex vertexList[OBJECT_MAX_VERTICES];    // 顶点数组
 };
 

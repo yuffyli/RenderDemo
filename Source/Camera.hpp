@@ -23,6 +23,8 @@ public:
     
     void updateMatrix();
 
+	void setUpTarget(const Point3 &t);
+
 	void setUpPosistion(const Point3 &p) 
 	{
 		m_posCamera = p;

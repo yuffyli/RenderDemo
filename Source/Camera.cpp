@@ -88,3 +88,8 @@ void Camera::updateMatrix()
 	// 设置屏幕变换矩阵
     m_matrixScreen.setupScreen(m_fScreenWidth, m_fScreenHeight);
 }
+
+void Camera::setUpTarget(const Point3 &t)
+{
+	m_posTarget = t;
+}

@@ -40,8 +40,9 @@ int32_t nWindowHeight;
 unsigned char *pFrameBuffer = NULL;		// frame buffer
 
 float fScale = 0.8999f;
-float fTheta = 655.0f;
-
+float fTheta = .0f;
+Point3 posObject = Point3(.0f, .0f, .0f);
+Vector3 rotAxis(.0f,1.0f, .0f);
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -80,7 +81,7 @@ void ScreenUpdate()
 void GameInit(int32_t w, int32_t h)
 {
 	// 设置相机
-	Point3 posCam(3.0f, .0f, -5.0f);	
+	Point3 posCam(0.0f, .0f, -5.0f);//(3.0f, .0f, -5.0f);	
 	Vector3 vecDir(0, 0, 0);
 	Point3 posTarget(.0f, .0f, .0f);
 	Vector3 vecUp(.0f, 1.0f, .0f);
@@ -93,24 +94,45 @@ void GameInit(int32_t w, int32_t h)
 	// 生成物体
 	mainObj.init(RES_OBJECT_FILE, &mainTexture);
 
+	mainObj.setupWorldPos(posObject);
+
 	// 初始化渲染器
 	mainRender.init(w, h, RENDER_STATE, DEPTH_BUFFER_STATE, pFrameBuffer);
 }
 
 void GameMain()
 {
-	// 更新相机
-	if (KEY_DOWN(VK_DOWN))
+	// 改变物体位置
+	if (KEY_DOWN('A'))
 	{
-		mainCam.m_posCamera.z -= 0.1f;
+		posObject.x -= 0.1f;
 	}
-	if (KEY_DOWN(VK_UP))
+	if (KEY_DOWN('D'))
 	{
-		mainCam.m_posCamera.z += 0.1f;
+		posObject.x += 0.1f;
 	}
-	mainCam.updateMatrix();
 
-	// 改变物体
+	if (KEY_DOWN('W'))
+	{
+		posObject.y += 0.1f;
+	}
+	if (KEY_DOWN('S'))
+	{
+		posObject.y -= 0.1f;
+	}
+
+	if (KEY_DOWN('F'))
+	{
+		posObject.z += 0.1f;
+	}
+	if (KEY_DOWN('B'))
+	{
+		posObject.z -= 0.1f;
+	}
+
+
+	mainObj.setupWorldPos(posObject);
+
 
 	// 旋转物体
 	if (KEY_DOWN(VK_LEFT))
@@ -123,24 +145,42 @@ void GameMain()
 	}
 
 	// 缩放物体
-	if (KEY_DOWN(VK_SUBTRACT))
+	if (KEY_DOWN(VK_PRIOR))
 	{
 		fScale -= 0.01f;
 	}
 
-	if (KEY_DOWN(VK_ADD))
+	if (KEY_DOWN(VK_NEXT))
 	{
 		fScale += 0.01f;
 	}
 
 	mainObj.setupScale(fScale);
-	Vector3 rotAxis(1.0f, 1.0f, 1.0f);
 	rotAxis.normalize();
 	mainObj.setupRotate(rotAxis, degreeToRadian(fTheta));
+
+	// 更新相机
+	if (KEY_DOWN(VK_DOWN))
+	{
+		mainCam.m_posCamera.z -= 0.1f;
+	}
+	if (KEY_DOWN(VK_UP))
+	{
+		mainCam.m_posCamera.z += 0.1f;
+	}
+
+	if (CAMERA_FOLLOW_STATE & CAMERA_FOLLOW_OBJECT)
+	{
+		mainCam.setUpTarget(mainObj.posWorld);
+	}
+	
+	mainCam.updateMatrix();
 
 	/************************************************************************/
 	/* 各种变换                                                                     */
 	/************************************************************************/
+	mainObj.resetStates();
+
 	// 世界变换
 	mainObj.worldTransform();
 
@@ -151,13 +191,14 @@ void GameMain()
 	mainObj.cameraTransform(mainCam);
 
 	// 物体剔除
-	mainObj.cullObject(mainCam, CULL_OBJECT_XYZ_PLANE);
+	//mainObj.cullObject(mainCam, CULL_OBJECT_XYZ_PLANE);
 
 	// 投影变换
 	mainObj.projectTransform(mainCam);
 
 	// 裁剪
-	mainObj.clipping();
+	//mainObj.clipping();
+	mainObj.clipPolys(mainCam, CLIP_POLY_PLANE);
 
 	// 透视除法
 	mainObj.perspectiveDivision();

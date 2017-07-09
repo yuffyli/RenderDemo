@@ -55,6 +55,8 @@ typedef unsigned char    byte;
 // 多边形属性
 #define POLY_ATTR_2SIDED 0x0001
 
+#define POLY_VERTICES_NUM 3
+
 // 多边形状态
 #define POLY_STATE_ACTIVE 0x0001
 #define POLY_STATE_CLIPPED 0x0002
@@ -71,6 +73,12 @@ typedef unsigned char    byte;
 #define OBJECT_STATE_VISIBLE 0x0002
 #define OBJECT_STATE_CULLED 0x0004
 
+// 相机跟随
+#define CAMERA_FOLLOW_NONE 0x0001
+#define CAMERA_FOLLOW_OBJECT 0x0002
+#define CAMERA_FOLLOW_STATE CAMERA_FOLLOW_NONE
+
+
 // 渲染列表变换标记
 #define RENDER_TRANSFORM_LOCAL 1
 #define RENDER_TRANSFORM_TRANS 2
@@ -80,7 +88,7 @@ typedef unsigned char    byte;
 
 #define COLOR0	0x11ffff
 #define COLOR1	0xccffff
-#define COLOR2	0x99ccff
+#define COLOR2	0x00ffff
 #define COLOR3	0xff9966
 
 #define SET_BIT(word,bit_flag)   ((word)=((word) | (bit_flag)))
@@ -90,13 +98,13 @@ typedef unsigned char    byte;
 #define RENDER_STATE_WIREFRAME 0x0001
 #define RENDER_STATE_TEXTURE 0x0002
 #define RENDER_STATE_COLOR 0x0004
-#define RENDER_STATE	 RENDER_STATE_WIREFRAME /*RENDER_STATE_WIREFRAME*/
+#define RENDER_STATE	 RENDER_STATE_TEXTURE /*RENDER_STATE_WIREFRAME*/
 
 // 背面剔除
 #define CULLING_NONE 0x0001
 #define CULLING_BACK_FACE 0x0002
 #define CULLING_FRONT_FACE 0x0004
-#define CULLING_STATE CULLING_BACK_FACE
+#define CULLING_STATE CULLING_NONE
 
 
 // 裁剪
@@ -105,11 +113,26 @@ typedef unsigned char    byte;
 #define AREA_BOTTOM 4	// 0100
 #define AREA_TOP 8			// 1000
 
+#define CLIP_POLY_X_PLANE	0x0001
+#define CLIP_POLY_Y_PLANE		0x0002
+#define CLIP_POLY_Z_PLANE	0x0004
+#define CLIP_POLY_PLANE CLIP_POLY_X_PLANE|CLIP_POLY_Y_PLANE|CLIP_POLY_Z_PLANE
+
+#define CLIP_CODE_GZ		0x0001
+#define CLIP_CODE_LZ		0x0002
+#define CLIP_CODE_IZ		0x0004
+#define CLIP_CODE_GX		0x0001
+#define CLIP_CODE_LX		0x0002
+#define CLIP_CODE_IX		0x0004
+#define CLIP_CODE_GY		0x0001
+#define CLIP_CODE_LY		0x0002
+#define CLIP_CODE_IY		0x0004
+
 
 // 深度测试
 #define ENABLE_DEPTH_BUFFER 0x0001
 #define DISABLE_DEPTH_BUFFER 0x0002
-#define DEPTH_BUFFER_STATE ENABLE_DEPTH_BUFFER
+#define DEPTH_BUFFER_STATE DISABLE_DEPTH_BUFFER
 
 #define RES_OBJECT_SINGLE_TRI_FILE "Resources\\cube.plg"
 #define RES_OBJECT_MULTI_TRI_FILE "Resources\\cube2.plg"
