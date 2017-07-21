@@ -6,6 +6,7 @@
 //  Copyright © 2017年 yuffy. All rights reserved.
 //
 
+// #include "StdAfx.h"
 #include "MathUtil.hpp"
 
 float wrapPI(float theta)

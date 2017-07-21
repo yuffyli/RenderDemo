@@ -6,6 +6,8 @@
 //  Copyright © 2017年 yuffy. All rights reserved.
 //
 
+// #include "StdAfx.h"
+
 #include "Texture.hpp"
 #include "MathUtil.hpp"
 #include "png.h"

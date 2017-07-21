@@ -6,6 +6,8 @@
 //  Copyright © 2017年 yuffy. All rights reserved.
 //
 
+// #include "StdAfx.h"
+
 #include "Render.hpp"
 #include "Object.hpp"
 #include "Macro.hpp"
@@ -122,14 +124,68 @@ void Render::drawTexture(Texture *pTexture)
 void Render::drawObject(Object *pObject)
 {
 	clearBuffer();
-	//for (int32_t i = 0; i < pObject->nLocalPolyCnt; ++i)
+	uint32_t color = 0x11ffff;
 	for (int32_t i = 0; i < pObject->nTransPolyCnt; ++i)
 	{
 		if (pObject->polyList[i].nState & POLY_STATE_ACTIVE)
 		{
-			drawPoly(&pObject->polyList[i]);
+			switch(i)
+			{
+			case 0:
+			case 1:
+				color = 0xff00ff;
+				break;
+			case 2:
+			case 3:
+				color = 0x0000ee;
+				break;
+			case 4:
+			case 5:
+				color = 0x00ff00;
+				break;
+			case 6:
+			case 7:
+				color = 0xeeeeee;
+				break;
+			case 8:
+			case 9:
+				color = 0xff0000;
+				break;
+			case 10:
+			case 11:
+				color = 0xffff00;
+				break;
+			default:
+				color = 0x11ffff;
+				break;
+			}
+
+			// 线框模式
+			if (nRenderState & RENDER_STATE_WIREFRAME)
+			{
+				drawPoly(color, &pObject->polyList[i]);
+
+			}
+
+			// 纹理渲染
+			if (nRenderState & (RENDER_STATE_TEXTURE|RENDER_STATE_COLOR))
+			{
+				drawPoly(&pObject->polyList[i]);
+
+				
+			}
 		}
 	}
+}
+
+void Render::drawPoly(uint32_t color, Poly *pPoly)
+{
+	Vertex *pVList = pPoly->vertexList;
+	Vertex *pV0 = &pVList[pPoly->vertexIndex[0]];
+	Vertex *pV1 = &pVList[pPoly->vertexIndex[1]];
+	Vertex *pV2 = &pVList[pPoly->vertexIndex[2]];
+
+	drawTriangle(color, pV0, pV1, pV2);
 }
 
 void Render::drawPoly(Poly *pPoly)
@@ -144,27 +200,27 @@ void Render::drawPoly(Poly *pPoly)
 	//if (checkCVV(pV0) != 0 || checkCVV(pV1) != 0 || checkCVV(pV2) != 0) 
 	//	return;
 
-	// 线框模式
-	if (nRenderState & RENDER_STATE_WIREFRAME)
-	{
-		drawTriangle(pV0, pV1, pV2);
-		//drawTriangle(pV2, pV3, pV0);
-	}
+	//// 线框模式
+	//if (nRenderState & RENDER_STATE_WIREFRAME)
+	//{
+	//	drawTriangle(pV0, pV1, pV2);
+	//	//drawTriangle(pV2, pV3, pV0);
+	//}
 
-	// 纹理渲染
-	if (nRenderState & (RENDER_STATE_TEXTURE|RENDER_STATE_COLOR))
+	//// 纹理渲染
+	//if (nRenderState & (RENDER_STATE_TEXTURE|RENDER_STATE_COLOR))
 	{
 		drawTriangle(pPoly->pTexture, pV0, pV1, pV2);
 		//drawTriangle(pPoly->pTexture, pV2, pV3, pV0);
 	}
 }
 
-void Render::drawTriangle(Vertex *pV0, Vertex *pV1, Vertex *pV2)
+void Render::drawTriangle(uint32_t color, Vertex *pV0, Vertex *pV1, Vertex *pV2)
 {
 	// 线框模式
-	drawLine(rounding(pV0->pos.x), rounding(pV0->pos.y), rounding(pV1->pos.x), rounding(pV1->pos.y), COLOR2);
-	drawLine(rounding(pV0->pos.x), rounding(pV0->pos.y), rounding(pV2->pos.x), rounding(pV2->pos.y), COLOR2);
-	drawLine(rounding(pV1->pos.x), rounding(pV1->pos.y), rounding(pV2->pos.x), rounding(pV2->pos.y), COLOR2);
+	drawLine(rounding(pV0->pos.x), rounding(pV0->pos.y), rounding(pV1->pos.x), rounding(pV1->pos.y), color);
+	drawLine(rounding(pV0->pos.x), rounding(pV0->pos.y), rounding(pV2->pos.x), rounding(pV2->pos.y), color);
+	drawLine(rounding(pV1->pos.x), rounding(pV1->pos.y), rounding(pV2->pos.x), rounding(pV2->pos.y), color);
 }
 
 void Render::drawTriangle(Texture *pTexture, Vertex *pV0, Vertex *pV1, Vertex *pV2)

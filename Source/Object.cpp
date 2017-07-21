@@ -5,6 +5,7 @@
 //  Created by 李燕霏 on 2017/5/6.
 //  Copyright © 2017年 yuffy. All rights reserved.
 //
+// #include "StdAfx.h"
 
 #include "Object.hpp"
 #include <stdio.h>
@@ -310,7 +311,7 @@ void Object::clipPolys(const Camera &cam, int32_t nClipFlags)
 			{
 				if (nVertsIn == 2)
 				{
-					// 有一个点在远近裁剪面之间，不需要新增三角形
+					// 有2个点在远近裁剪面之间，不需要新增三角形
 					Vertex *pV0, *pV1, *pV2;
 					if (codes[0] != CLIP_CODE_LZ)
 					{
@@ -352,7 +353,7 @@ void Object::clipPolys(const Camera &cam, int32_t nClipFlags)
 
 				if (nVertsIn == 1)
 				{
-					// 有两个点在远近裁剪面之间，需要重新分割三角形
+					// 有1个点在远近裁剪面之间，需要重新分割三角形
 					if (codes[0] == CLIP_CODE_LZ)
 					{
 						pV0 = &pVList[pPoly->vertexIndex[0]];
@@ -495,21 +496,50 @@ void Object::projectTransform(const Camera &cam)
 void Object::perspectiveDivision()
 {
 	//透视除法，变换到标准化设备坐标 NDC（Normalized Device Coordinates）
-	for (int32_t i = 0; i < nLocalVerticesCnt; ++i)
+	for (int32_t i = 0; i< nTransPolyCnt; ++i)
 	{
-		float rhw = 1.0f/vertexList[i].w;
-		vertexList[i].pos *= rhw;
-		vertexList[i].rhw = rhw;
+		Poly &poly = polyList[i];
+		if (poly.nState & POLY_STATE_ACTIVE)
+		{
+			Vertex *vertexList = poly.vertexList;
+			for (int32_t j = 0; j < POLY_VERTICES_NUM; ++j)
+			{
+				int32_t k = poly.vertexIndex[j];
+				float rhw = 1.0f/vertexList[k].w;
+				vertexList[k].pos *= rhw;
+				vertexList[k].rhw = rhw;
+			}
+		}
 	}
+	//for (int32_t i = 0; i < nTransVerticesCnt; ++i)
+	//{
+	//	float rhw = 1.0f/vertexList[i].w;
+	//	vertexList[i].pos *= rhw;
+	//	vertexList[i].rhw = rhw;
+	//}
 }
 
 void Object::screenTranform(const Camera &cam)
 {
 	// 屏幕变换
-	for (int32_t i = 0; i < nLocalVerticesCnt; ++i)
+	for (int32_t i = 0; i< nTransPolyCnt; ++i)
 	{
-		vertexList[i].pos *= cam.m_matrixScreen;
+		Poly &poly = polyList[i];
+		if (poly.nState & POLY_STATE_ACTIVE)
+		{
+			Vertex *vertexList = poly.vertexList;
+			for (int32_t j = 0; j < POLY_VERTICES_NUM; ++j)
+			{
+				int32_t k = poly.vertexIndex[j];
+				vertexList[k].pos *= cam.m_matrixScreen;
+			}
+		}
 	}
+
+	//for (int32_t i = 0; i < nTransVerticesCnt; ++i)
+	//{
+	//	vertexList[i].pos *= cam.m_matrixScreen;
+	//}
 }
 
 

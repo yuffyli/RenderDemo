@@ -104,7 +104,7 @@ typedef unsigned char    byte;
 #define CULLING_NONE 0x0001
 #define CULLING_BACK_FACE 0x0002
 #define CULLING_FRONT_FACE 0x0004
-#define CULLING_STATE CULLING_NONE
+#define CULLING_STATE CULLING_BACK_FACE
 
 
 // 裁剪
@@ -132,14 +132,16 @@ typedef unsigned char    byte;
 // 深度测试
 #define ENABLE_DEPTH_BUFFER 0x0001
 #define DISABLE_DEPTH_BUFFER 0x0002
-#define DEPTH_BUFFER_STATE DISABLE_DEPTH_BUFFER
+#define DEPTH_BUFFER_STATE ENABLE_DEPTH_BUFFER
 
-#define RES_OBJECT_SINGLE_TRI_FILE "Resources\\cube.plg"
-#define RES_OBJECT_MULTI_TRI_FILE "Resources\\cube2.plg"
-#define RES_OBJECT_FILE RES_OBJECT_MULTI_TRI_FILE
+#define RES_OBJECT_CUBE_TRI_FILE "Resources\\cube2.plg"
+#define RES_OBJECT_POKER_TRI_FILE "Resources\\poker.plg"
+#define RES_OBJECT_FILE RES_OBJECT_CUBE_TRI_FILE
 
 
-#define RES_PNG_FILE	"Resources\\images.png"
+#define RES_PNG_CUBE_FILE		"Resources\\images.png"
+#define RES_PNG_POKER_FILE	"Resources\\poker.png"
+#define RES_PNG_FILE	RES_PNG_CUBE_FILE
 
 
 #endif /* Macro_hpp */

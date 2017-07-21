@@ -6,6 +6,8 @@
 //  Copyright © 2017年 yuffy. All rights reserved.
 //
 
+// #include "StdAfx.h"
+
 #include <math.h>
 #include "RotationMatrix.hpp"
 #include "EulerAngles.hpp"

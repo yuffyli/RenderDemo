@@ -23,6 +23,11 @@ class Texture;
 class Render
 {
 public:
+	void setZTestState(int32_t nState)
+	{
+		nDepthState = nState;
+	}
+
 	void init(int32_t w, int32_t h, int32_t renderState, int32_t depthState, unsigned char *fb);
 	void destroy();
 
@@ -36,8 +41,9 @@ public:
 	void initLineByY(Trapezoid *pTrapezoid, Line *pLine, int32_t y);
 	void drawTexture(Texture *pTexture);
 	void drawObject(Object *pObject);
+	void drawPoly(uint32_t color, Poly *pPoly);
 	void drawPoly(Poly *pPoly);
-	void drawTriangle(Vertex *pV0, Vertex *pV1, Vertex *pV2);
+	void drawTriangle(uint32_t color, Vertex *pV0, Vertex *pV1, Vertex *pV2);
 	void drawTriangle(Texture *pTexture, Vertex *pV0, Vertex *pV1, Vertex *pV2);
 	void drawTrapezoid(Texture *pTexture, Trapezoid *pTrapezoid);
 	void drawHorizontalLine(Texture *pTexture, Line *pLine);
@@ -59,6 +65,7 @@ public:
 	int32_t nTexHeight;
 	float fMaxU;
 	float fMaxV;
+
 	//uint32_t **pTexture;			// 纹理
 };
 

@@ -119,6 +119,7 @@ struct Vertex
 		res.pos = pos + rhs.pos;
 		res.w = w + rhs.w;
 		res.tu = tu + rhs.tu;
+		res.tv = tv + rhs.tv;
 		res.color = color + rhs.color;
 		res.rhw = rhw + rhs.rhw;
 

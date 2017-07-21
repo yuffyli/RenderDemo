@@ -5,7 +5,7 @@
 //  Created by 李燕霏 on 2017/3/11.
 //  Copyright © 2017年 yuffy. All rights reserved.
 //
-//#include "StdAfx.h"
+// #include "StdAfx.h"
 
 #define WIN32_LEAN_AND_MEAN 
 
@@ -17,7 +17,8 @@
 #include "Object.hpp"
 #include "Render.hpp"
 #include "Texture.hpp"
-
+#include <atltypes.h>
+#include <winuser.h>
 
 #define KEY_DOWN(vk_code) ((GetAsyncKeyState(vk_code) & 0x8000) ? 1 : 0)
 #define KEY_UP(vk_code) ((GetAsyncKeyState(vk_code) & 0x8000) ? 0 : 1)
@@ -39,10 +40,37 @@ int32_t nWindowWidth;
 int32_t nWindowHeight;
 unsigned char *pFrameBuffer = NULL;		// frame buffer
 
-float fScale = 0.8999f;
-float fTheta = .0f;
-Point3 posObject = Point3(.0f, .0f, .0f);
+// 物体
+float fScale = 1.0f;
+float fTheta = 45.0f;
+Point3 posObject = Point3(0.0f, .0f, 0.0f);
 Vector3 rotAxis(.0f,1.0f, .0f);
+
+// 相加
+Point3 posCam(0.0f, .0f, -1.0f);
+Vector3 vecDir(0, 0, 0);
+Point3 posTarget(.0f, .0f, .0f);
+Vector3 vecUp(.0f, 1.0f, .0f);
+float fFov = 90.0f;
+float fNear = 1.0f;
+float fFar = 500.0f;
+
+//////////////////////////////////////////////////////////////////////////
+void Reset()
+{
+	fScale = 1.0f;
+	fTheta = .0f;
+	posObject = Point3(0.0f, .0f, .0f);
+	rotAxis = Vector3(.0f,1.0f, .0f);
+
+	posCam = Vector3(0.0f, .0f, -5.0f);
+	posTarget = Vector3(.0f, .0f, .0f);
+	vecUp = Vector3(.0f, 1.0f, .0f);
+
+	fFov = 90.0f;
+	fNear = 1.0f;
+	fFar = 500.0f;
+}
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -70,23 +98,49 @@ void ScreenInit(int32_t w, int32_t h)
 	memset(pFrameBuffer, 0, 4*w*h);
 }
 
+void DrawInfo(HDC hDC)
+{
+	PAINTSTRUCT ps ;
+	RECT        rect ;
+	DRAWTEXTPARAMS  drawTextParams;
+	drawTextParams.cbSize = sizeof(DRAWTEXTPARAMS);
+	drawTextParams.iLeftMargin = 1;
+
+	SetRect(&rect, 10,10,700,200);
+	SetTextColor(hDC, RGB(0,0,255));
+	//TEXT("How Soft Works, 0 1 2 9 ")
+	//str.Format("%s%d", str, 123);
+	char info[2048];
+	sprintf(info, "object pos: (%3.1f, %3.1f, %3.1f)\nscale:%3.1f\nrotate Axis: (%3.1f, %3.1f, %3.1f)\nroatation: %3.1f\ncamera pos: (%3.1f, %3.1f, %3.1f)\ntarget: (%3.1f, %3.1f, %3.1f)\nzTest: %d", 
+		mainObj.posWorld.x, mainObj.posWorld.y, mainObj.posWorld.z,
+		fScale,
+		mainObj.rotAxis.x, mainObj.rotAxis.y, mainObj.rotAxis.z,
+		fTheta,
+		mainCam.m_posCamera.x, mainCam.m_posCamera.y, mainCam.m_posCamera.z,
+		mainCam.m_posTarget.x, mainCam.m_posTarget.y, mainCam.m_posTarget.z,
+		(mainRender.nDepthState == ENABLE_DEPTH_BUFFER)
+		);
+	DrawTextEx(hDC, info, -1,&rect, DT_NOCLIP, &drawTextParams);
+}
+
 
 void ScreenUpdate()
 {
 	HDC hDC = GetDC(mainWindowHandle);
+
 	BitBlt(hDC, 0, 0, nWindowWidth, nWindowHeight, mainWindowDC, 0, 0, SRCCOPY);
+
+	DrawInfo(hDC);
+
 	ReleaseDC(mainWindowHandle, hDC);
 }
 
 void GameInit(int32_t w, int32_t h)
 {
+	Reset();
+
 	// 设置相机
-	Point3 posCam(0.0f, .0f, -5.0f);//(3.0f, .0f, -5.0f);	
-	Vector3 vecDir(0, 0, 0);
-	Point3 posTarget(.0f, .0f, .0f);
-	Vector3 vecUp(.0f, 1.0f, .0f);
-	float fFov = 90.0f;
-	mainCam.init(CAMERA_TYPE_UVN, posCam, vecDir, posTarget, vecUp, fFov, 1.0f, 500.0f, w, h);
+	mainCam.init(CAMERA_TYPE_UVN, posCam, vecDir, posTarget, vecUp, fFov, fNear, fFar, w, h);
 	mainCam.updateMatrix();
 
 	mainTexture.initByPng(RES_PNG_FILE);
@@ -102,6 +156,31 @@ void GameInit(int32_t w, int32_t h)
 
 void GameMain()
 {
+	if (KEY_DOWN('0'))
+	{
+		Reset();
+	}
+
+	if (KEY_DOWN('1'))
+	{
+		rotAxis = Vector3(.0f, 1.0f, .0f);
+	}
+
+	if (KEY_DOWN('2'))
+	{
+		rotAxis = Vector3(1.0f, 1.0f, 1.0f);
+	}
+
+	// 深度测试设置
+	if (KEY_DOWN('O'))
+	{
+		mainRender.setZTestState(ENABLE_DEPTH_BUFFER);
+	}
+	if (KEY_DOWN('L'))
+	{
+		mainRender.setZTestState(DISABLE_DEPTH_BUFFER);
+	}
+
 	// 改变物体位置
 	if (KEY_DOWN('A'))
 	{
@@ -130,10 +209,6 @@ void GameMain()
 		posObject.z -= 0.1f;
 	}
 
-
-	mainObj.setupWorldPos(posObject);
-
-
 	// 旋转物体
 	if (KEY_DOWN(VK_LEFT))
 	{
@@ -142,6 +217,11 @@ void GameMain()
 	if (KEY_DOWN(VK_RIGHT))
 	{
 		fTheta += 5.0f;
+	}
+
+	if (fTheta > 360.0f)
+	{
+		fTheta -= 360.0f*((int32_t)fTheta/360.0f);
 	}
 
 	// 缩放物体
@@ -155,25 +235,37 @@ void GameMain()
 		fScale += 0.01f;
 	}
 
-	mainObj.setupScale(fScale);
-	rotAxis.normalize();
-	mainObj.setupRotate(rotAxis, degreeToRadian(fTheta));
 
 	// 更新相机
 	if (KEY_DOWN(VK_DOWN))
 	{
-		mainCam.m_posCamera.z -= 0.1f;
+		posCam.z -= 0.1f;
 	}
 	if (KEY_DOWN(VK_UP))
 	{
-		mainCam.m_posCamera.z += 0.1f;
+		posCam.z += 0.1f;
 	}
 
-	if (CAMERA_FOLLOW_STATE & CAMERA_FOLLOW_OBJECT)
+	if (posCam.z - .0f >= .0f && posCam.z - .0f <= 0.01f)
 	{
-		mainCam.setUpTarget(mainObj.posWorld);
+		posCam.z = 0.1f;
 	}
-	
+	else if (.0f - posCam.z >= .0f && .0f - posCam.z <= 0.01f)
+	{
+		posCam.z = -0.1f;
+	}
+
+
+	//////////////////////////////////////////////////////////////////////////
+	mainObj.setupWorldPos(posObject);
+	mainObj.setupScale(fScale);
+	rotAxis.normalize();
+	mainObj.setupRotate(rotAxis, degreeToRadian(fTheta));
+
+	//////////////////////////////////////////////////////////////////////////
+	mainCam.setUpPosistion(posCam);
+	mainCam.setUpTarget(posTarget);
+
 	mainCam.updateMatrix();
 
 	/************************************************************************/

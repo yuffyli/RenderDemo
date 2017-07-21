@@ -5,7 +5,7 @@
 //  Created by 李燕霏 on 2017/3/11.
 //  Copyright © 2017年 yuffy. All rights reserved.
 //
-
+// #include "StdAfx.h"
 #include "Camera.hpp"
 #include "MathUtil.hpp"
 #include "Macro.hpp"
